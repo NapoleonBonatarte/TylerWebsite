@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "python manage.py chem\migrate,
+    "startCommand": "python manage.py chem\migrate && gunicorn chem.wsgi,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 1
   }
