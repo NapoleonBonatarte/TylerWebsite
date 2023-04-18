@@ -69,7 +69,7 @@ def molarmass(request):
             return HttpResponse(html)
         except Exception as e:
             print (e)
-            return HttpResponse("Error")
+            return HttpResponse("Error" + e)
     
     return render(render,'molcalculation.html')
 
