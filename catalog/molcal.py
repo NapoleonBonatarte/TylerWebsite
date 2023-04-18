@@ -1,11 +1,14 @@
 
 import json
 import math
+import os
 
 fileToOpen = "TylerWebsite/catalog/elements.json"
 
 class moleCounter():
     def __init__(self,compound):
+        print(os.listdir("TylerWebsite"), "------TYLER WEBSITE")
+        print(os.listdir("TylerWebsite/catalog"), "------ CATALOG")
         f = open(fileToOpen)
  
         self.elementList = json.load(f)
