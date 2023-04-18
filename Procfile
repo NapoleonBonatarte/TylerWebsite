@@ -1,1 +1,1 @@
-web: py TylerWebsite/manage.py migrate && py TylerWebsite/manage.py collectstatic && gunicorn TylerWebsite.chem:application
+web: py TylerWebsite/manage.py migrate && py TylerWebsite/manage.py collectstatic && print("TESTING") && gunicorn TylerWebsite.chem:application
