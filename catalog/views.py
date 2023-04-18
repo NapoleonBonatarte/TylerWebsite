@@ -3,6 +3,7 @@ from .models import Element
 from .molcal import moleCounter, electronegativity, cellParameter
 from .physicsCalc import photon
 from django.shortcuts import HttpResponse
+import os
 
 
 def index(request):
@@ -59,6 +60,8 @@ def molarmass(request):
     returns the mols of a given compound
     """""
     print("SEARCH")
+    print(os.listdir())
+
     if request.method == 'POST':
         compound = request.POST.get('textfield',None)
         try:
