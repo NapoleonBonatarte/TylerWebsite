@@ -1,1 +1,1 @@
-web: py chem/manage.py migrate && py manage.py collectstatic && gunicorn chem.wsgi
+web: py chem/manage.py migrate && py chem/manage.py collectstatic && gunicorn chem.wsgi
