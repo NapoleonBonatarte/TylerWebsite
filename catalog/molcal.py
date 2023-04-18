@@ -3,7 +3,7 @@ import json
 import math
 import os
 
-fileToOpen = "TylerWebsite/catalog/elements.json"
+fileToOpen = "catalog/elements.json"
 
 class moleCounter():
     def __init__(self,compound):
