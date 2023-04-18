@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<style>
+    .container {
+    height: 50px;
+    position: relative;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+}
+.red-button {
+    /*ff2e2e*/
+    height: 50px;
+    width: 100%;
+    background-color: #b3132d;
+    border: solid;
+    color: rgb(0, 0, 0);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>
+
+<html>
+<head>
+    <meta name="page" content="width=device-width">
+    <title>Tyler's Website</title>
+</head>
+<body style="background-color: palevioletred;">
+    <div class="center">
+        <h1>Tyler's Website</h1>
+    </div>
+    <div class="center">
+        <form action="chemistryCalculator/", method="post">
+            {% csrf_token %}
+            <input type="submit" name="chemistryScreen" value="Chemistry Calculator" class='red-button'>
+        </form>
+        <form action="physicsCalculator/", method="post">
+            {% csrf_token %}
+            <input type="submit" name="physicsScreen" value="Physics Calculator" class='red-button'>
+        </form>
+        <form action="personalPage/", method="post">
+            {% csrf_token %}
+            <input type="submit" name="personalPage" value="Personal Page" class="red-button">
+        </form>
+    </div>
+
+</body>

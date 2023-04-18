@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Physics Calculator</title>
+</head>
+<body>
+    <h1>Physics Calculator</h1>
+    <h2>Photon Energy Calculator</h2>
+    <b1>Enter in a value in wavelength, value entered is in meters</b1>
+    <form method='POST' action="photonEnergy/">
+        {% csrf_token %}
+        <input type="text" name="textfield">
+        <select name="length">
+            <option value="meters">Meters</option>
+            <option value="millimeters">Milimeters</option>
+            <option value="micrometers">Micrometers</option>
+            <option value="nanometers">Nanometers</option>
+            <option value="angstroms">Angstroms</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Photon wavelength calculator</h2>
+    <b1>Enter energy in Joules</b1>
+    <form method="POST" action="photonWavelength/">
+        {% csrf_token %}
+        <input type="text" name="textfield">
+        <button type="submit">Submit</button>
+    </form>

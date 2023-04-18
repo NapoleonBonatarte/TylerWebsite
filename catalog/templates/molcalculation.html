@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chemistry Calculator</title>
+</head>
+<body>
+    <h1>Chemistry Calculator</h1>
+    <h2>Molar Mass Calculator</h2>
+    <b1>Enter in a compound, ie: CHe6</b1>
+    <form method='POST' action="molarmass/">
+        {% csrf_token %}
+        <input type="text" name="textfield">
+        
+        <button type="submit">Submit</button>
+    </form>
+    <h2>Electronegativity Calculator</h2>
+    <b1>Enter in compound with no more than 2 elements, ie: CHe</b1>
+    <form method='POST' action = 'electronegativitycalc/'>
+        {% csrf_token %}
+        <input type = "text" name="textfield">
+        <button type="submit">Submit</button>
+
+    </form>
+
+    <h2>Ionic Character Calculator</h2>
+    <b1>Enter in a compound with no more than 2 elements, ie: FH</b1>
+    <b1><br>Note: this calculation is an approximation, not an exact value,
+        <br>extreme values will be more inaccurate.
+    </b1>
+    <form method="POST" action = "ionicChar/">
+        {% csrf_token %}
+        <input type="text" name="textfield">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Miller Indices Calculator</h2>
+    <b1>Enter in an "a" value, also known as its cell parameter<br>
+    then enter in the lattices d-spacing value. Both will be in Angstroms</b1>
+    <b1><br> the equation behind this is d = a/sqrt(hkl) <br> with hkl being solved through brute force<br><br>
+    ie: a = 4.806, d spacing = 2.806</b1>
+    <form method="POST" action="millerIndices/">
+        {% csrf_token %}
+        <p>Unit cell value (a)</p>
+        <input type="text" name="cell_parameter"><br>
+        <p>d-spacing value</p>
+        <input type="text" name="d-spacing"><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>D-Spacing Calculator</h2>
+    <b1>Enter in the a value, otherwise known as the unit cell, 
+        then enter in the miller indices in a comma delineatied format
+        ie: a = 4.806, miller indices = 1,1,1</b1>
+
+    <form method="POST" action="d_spacingcalc/">
+        {% csrf_token %}
+        <p>Unit cell value (a)</p>
+        <input type="text" name="unit_cell"><br>
+        <p>Miller Indice Value</p>
+        <input type="text" name="miller"><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Unit Cell Parameter Calculator</h2>
+    <b1>Enter in the d-spacing value and the miller indice in the same manner as above</b1>
+
+    <form method="POST" action="unit_cell/">
+        {% csrf_token %}
+        <p>d-spacing value</p>
+        <input type="text" name="d_spacing"><br>
+        <p>Miller Indice Value</p>
+        <input type="text" name="miller"><br>
+        <button type="submit">Submit</button>
+
+    </form>
+
+</body>
