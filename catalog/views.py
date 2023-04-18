@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Element
-from .molcal import moleCounter, electronegativity, cellParameter
+from .molcal import moleCounter, electronegativity, cellParameter, photons
 from .physicsCalc import photon
 from django.shortcuts import HttpResponse
 import os
@@ -35,6 +35,21 @@ def photonWavelength(request):
             photonEnergy = photon()
             wavelength = photonEnergy.calculateWavelength(energy)
             return HttpResponse(str(wavelength) + " nanometers")
+        except Exception as e:
+            print(e, "ERROR HERE")
+            return HttpResponse("Error")
+        
+def xrdCalc(request):
+    """
+    calculates wavelength when given d-spacing and theta
+    """
+    if request.method == 'POST':
+        d = request.POST.get('d_spacing', None)
+        theta = request.POST.get('theta', None)
+        try:
+            photonEnergy = photons()
+            wavelength = photonEnergy.calcWavelength(d,theta)
+            return HttpResponse(str(wavelength) + " picometers")
         except Exception as e:
             print(e, "ERROR HERE")
             return HttpResponse("Error")

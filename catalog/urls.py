@@ -10,6 +10,7 @@ urlpatterns = [
     path('chemistryCalculator/millerIndices/', views.millerIndices, name = 'millerIndices'),
     path('chemistryCalculator/d_spacingcalc/', views.d_spacingcalc, name = 'd_spacingcalc'),
     path('chemistryCalculator/unit_cell/', views.unit_cell, name = 'unit_cell'),
+    path('chemistryCalculator/xrdCalc/', views.xrdCalc, name = 'xrdCalc'),
     path('physicsCalculator/', views.physicsCalculator, name = "physicsCalculator"),
     path('physicsCalculator/photonEnergy/', views.photonEnergy, name = 'photonEnergy'),
     path('physicsCalculator/photonWavelength/', views.photonWavelength, name = 'photonWaveLength'),

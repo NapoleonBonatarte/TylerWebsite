@@ -74,4 +74,17 @@
 
     </form>
 
+    <h2>XRD wavelength calculator</h2>
+    <b1>Enter in the d-spacing value and the theta value (order is always assumed to be 1, n=1)</b1>
+
+    <form method="POST" action="xrdCalc/">
+        {% csrf_token %}
+        <p>d-spacing value</p>
+        <input type="text" name="d_spacing"><br>
+        <p>theta</p>
+        <input type="text" name="theta"><br>
+        <button type="submit">Submit</button>
+
+    </form>
+
 </body>

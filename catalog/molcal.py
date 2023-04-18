@@ -160,14 +160,21 @@ class cellParameter():
     
 class photons():
     def __init__(self):
-        self.speedLight = 299792458
-        self.planck = 6.6260715 * 10^-34
+        self.planck = 6.626*(10**-34) # J*S
+        self.lightSpeed = 299792458 # m/s
+        self.conversions = {"meters":1, "millimeters":1000, "micrometers":1000000,
+                            "nanometers":1*10**9, "angstroms":1*10**10}
 
     def calcEnergy(self,wavelength):
         # wavelength in meters
-        num = self.speedLight * self.planck
+        num = self.lightSpeed * self.planck
         energy = num/wavelength
         return energy
+    
+    def calcWavelength(self, d_spacing, theta):
+        print(d_spacing, theta)
+        return float((2 * float(d_spacing))) * float(math.sin(float(theta)))
+
     
 
 
