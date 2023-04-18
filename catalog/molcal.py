@@ -4,7 +4,7 @@ import math
 
 class moleCounter():
     def __init__(self,compound):
-        f = open("TylerWebsite\catalog\elements.json")
+        f = open("elements.json")
  
         self.elementList = json.load(f)
 
@@ -55,7 +55,7 @@ class moleCounter():
 
 class electronegativity():
     def __init__(self,compound):
-        f = open("TylerWebsite\catalog\elements.json")
+        f = open("elements.json")
  
         self.elementList = json.load(f)
         self.compound = compound
