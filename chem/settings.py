@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 
+
+CSRF_Trusted_ORIGINS = ['https://web-production-566f.up.railway.app']
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,7 +31,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', "django-insecure-l2sd69fj0g@f6_
 #DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != "False"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://web-production-566f.up.railway.app', '127.0.0.1']
 
 
 # Application definition
