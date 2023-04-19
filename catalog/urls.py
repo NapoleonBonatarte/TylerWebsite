@@ -14,6 +14,6 @@ urlpatterns = [
     path('physicsCalculator/', views.physicsCalculator, name = "physicsCalculator"),
     path('physicsCalculator/photonEnergy/', views.photonEnergy, name = 'photonEnergy'),
     path('physicsCalculator/photonWavelength/', views.photonWavelength, name = 'photonWaveLength'),
-    path('personalPage/', views.personalPage, name='personalPage')
+    path('personalPage/', views.personalPage, name='personalPage'),
     
 ]

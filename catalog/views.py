@@ -68,14 +68,16 @@ def chemistryCalculator(request):
 
 def personalPage(request):
     print("Personal Page 1")
+    print(os.listdir('catalog/templates/images'))
     return render(request, "personalpage.html")
+
+def displayPicture():
+    pass
 
 def molarmass(request):
     """""
     returns the mols of a given compound
     """""
-    print("SEARCH")
-    print(os.listdir())
 
     if request.method == 'POST':
         compound = request.POST.get('textfield',None)
