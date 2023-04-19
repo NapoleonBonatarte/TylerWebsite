@@ -1,7 +1,9 @@
 from decimal import Decimal
+import datetime
 
 class photon():
     def __init__(self):
+        print(datetime.datetime.now())
         self.planck = 6.626*(10**-34) # J*S
         self.lightSpeed = 299792458 # m/s
         self.conversions = {"meters":1, "millimeters":1000, "micrometers":1000000,

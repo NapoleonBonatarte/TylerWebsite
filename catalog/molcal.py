@@ -1,12 +1,13 @@
 
 import json
 import math
-import os
+import datetime
 
 fileToOpen = "catalog/elements.json"
 
 class moleCounter():
     def __init__(self,compound):
+        print(datetime.datetime.now())
         f = open(fileToOpen)
  
         self.elementList = json.load(f)
@@ -58,6 +59,7 @@ class moleCounter():
 
 class electronegativity():
     def __init__(self,compound):
+        print(datetime.datetime.now())
         f = open(fileToOpen)
  
         self.elementList = json.load(f)
@@ -111,6 +113,7 @@ class electronegativity():
     
 class cellParameter():
     def __init__(self):
+        print(datetime.datetime.now())
         self.d_spacing = 0
         self.unit_cell_parameter = 0
         self.miller = (0,0,0)
@@ -160,6 +163,7 @@ class cellParameter():
     
 class photons():
     def __init__(self):
+        print(datetime.datetime.now())
         self.planck = 6.626*(10**-34) # J*S
         self.lightSpeed = 299792458 # m/s
         self.conversions = {"meters":1, "millimeters":1000, "micrometers":1000000,
