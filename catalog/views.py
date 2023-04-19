@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Element
-from .molcal import moleCounter, electronegativity, cellParameter, photons
+from .molcal import moleCounter, electronegativity, cellParameter, photons, calculator
 from .physicsCalc import photon
 from django.shortcuts import HttpResponse
 import os
@@ -109,6 +109,20 @@ def electronegativitycalc(request):
             else:
                 negativity = electro.calcElectronegavity(elements[1], "He")
             html = ("<H1>ElectroNegativity</H1>", negativity)
+            return HttpResponse(html)
+        except Exception as e:
+            print(e)
+            return HttpResponse("Error")
+        
+def deltaHCalculator(request):
+    if request.method == 'POST':
+        mass = request.POST.get('mass',None)
+        specificHeat = request.POST.get('heat',None)
+        deltaT = request.POST.get('deltaT',None)
+        try:
+            calc = calculator()
+            deltaH = calc.deltaHCalculator(mass,specificHeat,deltaT)
+            html = ("<H1>DeltaH</H1>" + str(deltaH) + " Joules")
             return HttpResponse(html)
         except Exception as e:
             print(e)

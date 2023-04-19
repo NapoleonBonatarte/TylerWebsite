@@ -87,4 +87,19 @@
 
     </form>
 
+    <h2>Delta H calculator</h2>
+    <b1>Enter in the mass of the reactans, specific heat and the change in temperature (delta T)</b1>
+
+    <form method="POST" action="deltaH/">
+        {% csrf_token %}
+        <p>Mass of Reactants in grams</p>
+        <input type="text" name="mass"><br>
+        <p>Specific Heat in J/kg</p>
+        <input type="text" name="heat"><br>
+        <p>Delta T in kelvin</p>
+        <input type="text" name="deltaT"><br>
+        <button type="submit">Submit</button>
+
+    </form>
+
 </body>

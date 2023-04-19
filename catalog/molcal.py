@@ -178,6 +178,14 @@ class photons():
     def calcWavelength(self, d_spacing, theta):
         print(d_spacing, theta)
         return float((2 * float(d_spacing))) * float(math.sin(float(theta)))
+    
+class calculator():
+    def __init__(self):
+        pass
+
+    def deltaHCalculator(self, mass,specificHeat,deltaT):
+        return float(float(mass) * float(specificHeat) * float(deltaT))
+
 
     
 
