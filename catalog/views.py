@@ -103,10 +103,15 @@ def electronegativitycalc(request):
         try:
             electro = electronegativity(compound)
             elements = electro.parseCompound()
-            negativity = electro.calcElectronegavity(elements[0],elements[1])
+            print(elements)
+            if len(elements) > 2:
+                negativity = electro.calcElectronegavity(elements[1],elements[2])
+            else:
+                negativity = electro.calcElectronegavity(elements[1], "He")
             html = ("<H1>ElectroNegativity</H1>", negativity)
             return HttpResponse(html)
-        except:
+        except Exception as e:
+            print(e)
             return HttpResponse("Error")
 
 def ionicCharacter(request):

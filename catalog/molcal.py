@@ -72,13 +72,12 @@ class electronegativity():
         for i in self.compound:
             if i.isupper():
                 finalcompound += "#" + i
-            finalcompound += i
+            else:
+                finalcompound += i
 
-        print(self.compound)
-        print(upperlist)
         self.elements = self.compound.split("#",1)
-        print(finalcompound)
-        return finalcompound
+        return finalcompound.split('#')
+
 
     
     def calcElectronegavity(self,comp1,comp2):
@@ -93,6 +92,7 @@ class electronegativity():
                 electro2 = i["electronegativity"]
                 #print(electro2)
 
+        print(electro1, electro2)
         electronegativity = round(abs(electro1 - electro2),5)
         return electronegativity
 
