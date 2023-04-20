@@ -1,0 +1,21 @@
+<html>
+<head>
+    <meta name="page" content="width=device-width">
+    <title>E Cell Calculator</title>
+</head>
+<body>
+        <b1>Enter in a value in the format of "F2(g) + 2 e^- → 2 F^-(aq)"<br>
+        this will have an standard potential of 2.86 Volts (University of Rhode Island)<br>
+        this entry is the equivalent of F<sub>2</sub>(g) + 2 e<sup>-</sup> → 2 F<sup>-</sup>(aq)</b1>
+        <form method="POST" action="calculateECell/">
+                {% csrf_token %}
+                <p>left hand of equation<br>
+                EX: F2(g) + 2 e^-</p>
+                <input type="text" name="left"><br>
+                <p>right hand of equation<br>
+                EX: 2 F^-(aq)</p>
+                <input type="text" name="right"><br>
+                <button type="submit">Submit</button>
+        
+            </form>
+</body>

@@ -3,6 +3,7 @@ from .models import Element
 from .molcal import moleCounter, electronegativity, cellParameter, photons, calculator
 from .physicsCalc import photon
 from django.shortcuts import HttpResponse
+from .reductionPotential import ReductionPotential, ReductionPotentialSolution
 import os
 
 
@@ -11,6 +12,24 @@ def index(request):
     """""
     """
     return render(request,'home.html')
+
+def ECellCalculatorPage(request):
+    return render(request, "ECellCalculatorPage.html")
+
+def calculateECell(request):
+    if request.method == 'POST':
+        left = request.POST.get('left',None)
+        right = request.POST.get('right',None)
+
+        compound = left + "→" + right
+        compound = str(compound).replace(" ", "")
+        print(compound, "COMPOUND")
+        for i in range(len(ReductionPotentialSolution)):
+            print(ReductionPotentialSolution[i])
+            if ReductionPotentialSolution[i] == compound:
+                return HttpResponse(ReductionPotential[i])
+            
+        return HttpResponse("No Compound found!")
 
 def physicsCalculator(request):
     return render(request,"physicsCalculator.html")
