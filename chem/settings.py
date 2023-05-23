@@ -16,7 +16,7 @@ import openai
 from dotenv import load_dotenv
 
 load_dotenv()
-openai.api_key=os.environ.get('openAiKey')
+openai.api_key=os.environ.get('OPEN_AI_KEY')
 
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-566f.up.railway.app', 'https://www.tylerwinds.com']
@@ -29,7 +29,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-l2sd69fj0g@f6_r7&cs%e2hlzepdq!(ueee0nk2r)cj9l)6c5r'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', "h")
 
 # SECURITY WARNING: don't run with debug turned on in production!
