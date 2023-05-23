@@ -1,4 +1,5 @@
 import openai
+from .gptInterface.gptRecommendLocation import recommendLocation
 
 def parseUserInfo(patientRequest):
         print("beggining user parse")
@@ -14,13 +15,15 @@ def parseUserInfo(patientRequest):
                         address: (${address})
                         destination: (${destination_type})
                         city: (${city})
+                        state: (${state})
                         ---END FORMAT TEMPLATE---"""},
                         {"role": "user", "content": """I am going to ask you a question, I do not want you to analyze it, I only want you to parse the question, 
                         so if I ask (can you find cardiology centers in chicago) you should output 
                         ---BEGIN FORMAT TEMPLATE---
                         address: (null)
                         destination: (cardiology)
-                        city: (chicago)"""},
+                        city: (chicago)
+                        state: (null)"""},
                         {"role" : "user", "content": patientRequest}],
                 temperature=0.1,
                 n=1
@@ -28,5 +31,7 @@ def parseUserInfo(patientRequest):
 
         print(completion)
         result=completion.choices[0].message.content
-        print("Parse complete")
-        return result
+        a = recommendLocation(result)
+        if len(a) < 1:
+                return "No candidates found"
+        return a[:4]
