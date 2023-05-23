@@ -9,7 +9,7 @@
   {% load static %}
   <img src="{% static 'dog.png' %}" class="icon" />
   <h3>Searchful AI</h3>
-  <p>Enter in a sentence such as "I need food pantries in chicago"</p>
+  <p>Enter in a sentence such as "I need food pantries in Henderson NV"</p>
   <form action="/catalog/GPTDemo/runGPTParse/" method="post">
     {% csrf_token %}
     <textarea name="userInput" cols="30" rows="10" required></textarea>

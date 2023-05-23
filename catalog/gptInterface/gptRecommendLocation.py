@@ -6,10 +6,11 @@ import json
 def recommendLocation(info):
         # load file
         #### NOTE: change this setup to load json file from data base for quick integration
-        file = open('TylerWebsite\catalog\gptInterface\sample.json')
+        file = open('catalog\gptInterface\sample.json')
         data = json.load(file)
         # dictionary
         info = parselocationInfo(info)
+        #print(info)
 
         recomended_locations = []
 
@@ -124,24 +125,27 @@ def parselocationInfo(loc):
 
 def cleanData(info): # info should be a dict
 
-        file = open("TylerWebsite\catalog\gptInterface\state.json")
+        file = open("catalog\gptInterface\state.json")
         states = json.load(file)
+
+        print(states)
 
         if info['state'] != None:
                 if len(info['state'])>2:
                         for i in states:
                                 try:
-                                        if i['name'].__str__() == info["state"]:
+                                        if i['name'].__str__().lower() == info["state"].lower():
                                                 info['city'] = info['city'] + ", "+ i['abbreviation']
                                 except:
                                         print("except1")
                 else:
                         for i in states:
                                 try:
-                                        if i["abbreviation"].__str__() == info["state"]:
+                                        if i["abbreviation"].__str__().lower() == info["state"].lower():
                                                 info['city'] = info['city'] + ", " + i["abbreviation"]
                                 except:
                                         print("except2")
+        print(info)
         return info
 
 recommendLocation("---BEGIN FORMAT TEMPLATE---\naddress: (null)\ndestination: (Neurology)\ncity: (Henderson)\nstate: (Nevada)\n---END FORMAT TEMPLATE---")
