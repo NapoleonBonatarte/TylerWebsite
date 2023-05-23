@@ -36,4 +36,4 @@ def parseUserInfo(patientRequest):
         #print(result)
         if len(a) < 1:
                 return None
-        return a[:4]
+        return a
