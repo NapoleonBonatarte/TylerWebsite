@@ -1,7 +1,7 @@
 import openai
 
 def parseUserInfo(patientRequest):
-        
+        print("beggining user parse")
         completion = openai.ChatCompletion.create(
                  model="gpt-3.5-turbo",
                  messages=[{"role": "system","content":"""you are making a list of information about a patient, you are to parse their current address, and then you
@@ -28,4 +28,5 @@ def parseUserInfo(patientRequest):
 
         print(completion)
         result=completion.choices[0].message.content
+        print("Parse complete")
         return result
