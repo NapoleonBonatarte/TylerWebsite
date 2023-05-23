@@ -16,7 +16,7 @@ import openai
 from dotenv import load_dotenv
 
 load_dotenv()
-openai.api_key=os.getenv('openAiKey')
+openai.api_key=os.environ.get('openAiKey')
 
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-566f.up.railway.app', 'https://www.tylerwinds.com']
