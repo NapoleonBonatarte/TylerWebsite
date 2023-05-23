@@ -7,10 +7,10 @@ import os
 def recommendLocation(info):
         # load file
         #### NOTE: change this setup to load json file from data base for quick integration
-        testPath = "catalog\\gptInterface\\"
+        testPath = "catalog/gptInterface/"
         print(os.listdir(testPath))
 
-        file = open('catalog\gptInterface\sample.json')
+        file = open('catalog/gptInterface/sample.json')
         data = json.load(file)
         # dictionary
         info = parselocationInfo(info)
@@ -129,7 +129,7 @@ def parselocationInfo(loc):
 
 def cleanData(info): # info should be a dict
 
-        file = open("catalog\gptInterface\state.json")
+        file = open("catalog/gptInterface/state.json")
         states = json.load(file)
 
         print(states)
