@@ -1,11 +1,15 @@
 import re
 import json
+import os
 
 #### NOTE: This is using a preloaded JSON file, change this in production
 
 def recommendLocation(info):
         # load file
         #### NOTE: change this setup to load json file from data base for quick integration
+        testPath = "catalog/gptInterface/"
+        print(os.listdir(testPath))
+
         file = open('catalog\gptInterface\sample.json')
         data = json.load(file)
         # dictionary
