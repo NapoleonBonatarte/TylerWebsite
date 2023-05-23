@@ -7,7 +7,7 @@ import os
 def recommendLocation(info):
         # load file
         #### NOTE: change this setup to load json file from data base for quick integration
-        testPath = "catalog/gptInterface/"
+        testPath = "catalog\\gptInterface\\"
         print(os.listdir(testPath))
 
         file = open('catalog\gptInterface\sample.json')
