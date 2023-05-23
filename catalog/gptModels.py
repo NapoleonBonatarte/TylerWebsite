@@ -1,5 +1,6 @@
 import openai
 from .gptInterface.gptRecommendLocation import recommendLocation
+from .gptInterface.gptBuildOutput import buildOutput
 
 def parseUserInfo(patientRequest):
         print("beggining user parse")
@@ -32,6 +33,7 @@ def parseUserInfo(patientRequest):
         print(completion)
         result=completion.choices[0].message.content
         a = recommendLocation(result)
+        #print(result)
         if len(a) < 1:
-                return "No candidates found"
+                return None
         return a[:4]

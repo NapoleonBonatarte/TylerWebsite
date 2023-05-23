@@ -16,6 +16,6 @@
     <input type="submit" value="Generate locations" />
   </form>
   {% if result %}
-  <div class="result">{{ result }}</div>
+  <div class="result">{{ result|safe}}</div>
   {% endif %}
 </body>

@@ -8,6 +8,7 @@ import os
 import openai
 from django.template.response import TemplateResponse
 from .gptModels import parseUserInfo
+from .gptInterface.gptBuildOutput import buildOutput
 
 
 def index(request):
@@ -22,16 +23,16 @@ def GPTSearch(request):
     if request.method == "POST":
         patientRequest = request.POST.get("userInput")
         result = parseUserInfo(patientRequest)
-        print(result, "THIS IS THE RESULT 1")
+        #print(result, "THIS IS THE RESULT 1")
+        result = buildOutput(result)
         return TemplateResponse(request,"GPTHome.html",{"result":result})
         #return render(request, "GPTHome.html", result)
 
     result = request.args.get("result")
-    print(result, "THIS IS THE RESULT")
     return render(request, "GPTHome.html",result=result)
 
 def GPTDemo(request):
-
+    print("DEMO")
     return render(request, "GPTHome.html")
     
 
