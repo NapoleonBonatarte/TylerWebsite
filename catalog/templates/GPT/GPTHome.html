@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+  <title>Tyler's GPT demo</title>
+  <link
+    rel="shortcut icon"
+    href="{{ url_for('static', filename='dog.png') }}"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+</head>
+
+<body>
+  <img src="{{ url_for('static', filename='dog.png') }}" class="icon" />
+  <h3>Symptom Analyzer</h3>
+  <form action="/" method="post">
+    <textarea name="userInput" cols="30" rows="10" required></textarea>
+    <input type="submit" value="Generate symptoms" />
+  </form>
+  {% if result %}
+  <div class="result">{{ result }}</div>
+  {% endif %}
+</body>

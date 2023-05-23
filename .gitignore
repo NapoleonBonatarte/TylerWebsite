@@ -133,3 +133,6 @@ dmypy.json
 
 # text backup files
 *.bak
+
+# env
+.env

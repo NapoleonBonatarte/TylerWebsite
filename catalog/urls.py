@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('',views.index,name='index'), 
+    path('GPTDemo/', views.GPTDemo, name="GPTDemoScreen"),
+    path('GPTDemo/runGPTParse/', views.GPTSearch, name="GPTDemoScreenParse"),
     path('chemistryCalculator/', views.chemistryCalculator, name = 'calculatorScreen'),
     path('chemistryCalculator/molarmass/', views.molarmass, name = 'molarmass'),
     path('chemistryCalculator/electronegativitycalc/', views.electronegativitycalc, name = 'electronegativitycalc'),

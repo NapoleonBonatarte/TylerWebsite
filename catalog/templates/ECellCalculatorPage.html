@@ -7,15 +7,28 @@
         <b1>Enter in a value in the format of "F2(g) + 2 e^- → 2 F^-(aq)"<br>
         this will have an standard potential of 2.86 Volts (University of Rhode Island)<br>
         this entry is the equivalent of F<sub>2</sub>(g) + 2 e<sup>-</sup> → 2 F<sup>-</sup>(aq)</b1>
-        <form method="POST" action="calculateECell/">
-                {% csrf_token %}
+                <div id="leftHand">
                 <p>left hand of equation<br>
-                EX: F2(g) + 2 e^-</p>
+                        EX: F2(g) + 2 e^-</p>
+                <button id="addLeftCompound">Add Another Compound</button><br>
                 <input type="text" name="left"><br>
+                </div>
                 <p>right hand of equation<br>
                 EX: 2 F^-(aq)</p>
                 <input type="text" name="right"><br>
-                <button type="submit">Submit</button>
-        
-            </form>
+
+                <script>
+                        
+                        var form = document.getElementById("leftHand")
+                        var newTextField = document.createElement("input");
+                        newTextField.setAttribute("type", "text");
+
+                        
+                        document.getElementById("addLeftCompound").addEventListener("click", function(){form.appendChild(newTextField); });
+                        
+                </script>
+        <form method="POST" action="calculateECell/" id="form"></form>
+        {% csrf_token %}
+        <button type="submit">Submit</button>
+        </form>
 </body>

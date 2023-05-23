@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import openai
+from dotenv import load_dotenv
+
+load_dotenv()
+openai.api_key=os.getenv('openAiKey')
 
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-566f.up.railway.app', 'https://www.tylerwinds.com']

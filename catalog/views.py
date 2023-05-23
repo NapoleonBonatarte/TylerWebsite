@@ -5,6 +5,9 @@ from .physicsCalc import photon
 from django.shortcuts import HttpResponse
 from .reductionPotential import ReductionPotential, ReductionPotentialSolution
 import os
+import openai
+from django.template.response import TemplateResponse
+from .gptModels import parseUserInfo
 
 
 def index(request):
@@ -12,6 +15,25 @@ def index(request):
     """""
     """
     return render(request,'home.html')
+
+def GPTSearch(request):
+    print(request)
+
+    if request.method == "POST":
+        patientRequest = request.POST.get("userInput")
+        result = parseUserInfo(patientRequest)
+        print(result, "THIS IS THE RESULT 1")
+        return TemplateResponse(request,"GPTHome.html",{"result":result})
+        #return render(request, "GPTHome.html", result)
+
+    result = request.args.get("result")
+    print(result, "THIS IS THE RESULT")
+    return render(request, "GPTHome.html",result=result)
+
+def GPTDemo(request):
+
+    return render(request, "GPTHome.html")
+    
 
 def ECellCalculatorPage(request):
     return render(request, "ECellCalculatorPage.html")

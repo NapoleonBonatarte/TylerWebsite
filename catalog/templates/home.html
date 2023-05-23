@@ -25,7 +25,7 @@
     background-color: #b3132d;
     border: solid;
     color: rgb(0, 0, 0);
-    padding: 15px 32px;
+    padding: 5px 16px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -45,6 +45,10 @@
         <h1>Tyler's Website</h1>
     </div>
     <div class="center">
+        <form action="GPTDemo/", method="post">
+            {% csrf_token %}
+            <input type="submit" name="GPTDemoHomeScreen" value="GPTDemo" class="red-button">
+        </form>
         <form action="chemistryCalculator/", method="post">
             {% csrf_token %}
             <input type="submit" name="chemistryScreen" value="Chemistry Calculator" class='red-button'>
