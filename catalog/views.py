@@ -50,6 +50,12 @@ def GPTSearch(request):
     return render(request, "GPTHome.html",result=result)
 
 def GPTDemo(request):
+    global searchForLocation
+    global result
+
+    searchForLocation = True
+    result = ""
+
     print("DEMO")
     return render(request, "GPTHome.html")
     
