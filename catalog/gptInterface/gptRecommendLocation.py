@@ -1,6 +1,6 @@
 import re
 import json
-import os
+import usaddress
 
 #### NOTE: This is using a preloaded JSON file, change this in production
 
@@ -18,6 +18,9 @@ def recommendLocation(info):
 
         recomended_locations = []
 
+
+        if (info["Address"] != None) and ((info["city"] is None) or (info["state"]is None)):
+                info["city"] = findCityAndStateFromAddress(info)
 
         #### NOTE: lists seperated out based on fulfilled parameters, the
         # one directly below appends every location that fulfils the type of 
@@ -152,5 +155,15 @@ def cleanData(info): # info should be a dict
         #print(info)
         return info
 
-recommendLocation("---BEGIN FORMAT TEMPLATE---\naddress: (null)\ndestination: (Neurology)\ncity: (Henderson)\nstate: (Nevada)\n---END FORMAT TEMPLATE---")
+def findCityAndStateFromAddress(info):
+        address = usaddress.parse(info['Address'])
+        city = ""
+        state = ""
+        for i in address:
+                if i[1] == "PlaceName":
+                        city += i[0]
+                if i[1] == "StateName":
+                        state += ", " + i[0]
+
+#recommendLocation("---BEGIN FORMAT TEMPLATE---\naddress: (null)\ndestination: (Neurology)\ncity: (Henderson)\nstate: (Nevada)\n---END FORMAT TEMPLATE---")
 
