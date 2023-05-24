@@ -8,4 +8,4 @@ tzdata==2023.2
 openai==0.27.0
 python-dotenv==0.10.1
 whitenoise==6.4.0
-usaddress-0.5.10
+usaddress==0.5.10

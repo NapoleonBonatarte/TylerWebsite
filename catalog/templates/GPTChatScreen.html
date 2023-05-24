@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+  <title>Tyler's GPT demo</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'gpt.css' %}" />
+</head>
+
+
+<body>
+
+        <p id="loadingInfo"></p>
+        
+
+        {% if result %}
+        <div class="result">{{ result|safe}}</div>
+        {% endif %}
+
+        <form action="/catalog/GPTDemo/runGPTParse/GPTChatScreen/" method="post" id="userTextForm">
+                {% csrf_token %}
+                <input type="text" name="userInput" required id="textArea" placeholder="I want a dentist near Henderson NV">
+                <input type="submit" value="Generate locations" id="submitButton" onclick="loadingScreen()"/>
+        </form>
+
+        {% if info %}
+        <script>
+                document.getElementById("textArea").value = ("{{info}}")
+                document.getElementById("submitButton").click()
+
+                function loadingScreen(){
+                  document.getElementById("loadingInfo").innerHTML = "Loading, output will appear above";
+                }
+
+        </script>
+        {% endif %}
+
+</body>

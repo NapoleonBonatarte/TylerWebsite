@@ -37,7 +37,7 @@
   {% load static %}
   <form action="/catalog/GPTDemo/runGPTParse/" method="post" id="userTextForm">
     {% csrf_token %}
-    <input type="text" name="userInput" required id="textArea" placeholder="I want a dentist near Henderson NV">
+    <input type="text" name="userInput" id="textArea" placeholder="I want a dentist near Henderson NV">
     <input type="submit" value="Generate locations" id="submitButton" onclick="loadingScreen()"/>
   </form>
 
