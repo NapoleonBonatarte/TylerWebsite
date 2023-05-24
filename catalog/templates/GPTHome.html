@@ -2,18 +2,47 @@
 <head>
   <title>Tyler's GPT demo</title>
   {% load static %}
-  <link rel="stylesheet" href="{% static 'main.css' %}" />
+  <link rel="stylesheet" href="{% static 'gpt.css' %}" />
 </head>
 
 <body>
+  <div class="group">
+    <h3 class="searchful">Searchful </h3>
+    <h3 class="ai">AI<br><br><br><br></h3>
+  </div>
+
+  <div>
+    <h3 class="search-by-chatting">Search by chatting<br><br></h3>
+  </div>
+
+  <div>
+    <br>
+    <div class="rectangle">
+      <img src="{% static 'MapPin.png' %}" class="icon-map-pin" />
+      <p class="resource-name">Find health resources fast and easily with Searchful Chat</p>
+    </div>
+
+    <div class="rectangle">
+      <img src="{% static 'Website.png' %}" class="icon-map-pin" />
+      <p class="resource-name">Type what you're looking for and where</p>
+    </div>
+
+    <div class="rectangle">
+      <img src="{% static 'Website.png' %}" class="icon-map-pin" />
+      <p class="resource-name">The simplest Searchful Experience</p>
+    </div>
+
+  <br><br>
+  </div>
   {% load static %}
-  <img src="{% static 'dog.png' %}" class="icon" />
-  <h3>Searchful AI</h3>
-  <p>Enter in a sentence such as "I need food pantries in Henderson NV"</p>
   <form action="/catalog/GPTDemo/runGPTParse/" method="post" id="userTextForm">
     {% csrf_token %}
-    <textarea name="userInput" cols="30" rows="10" required id="textArea"></textarea>
+    <input type="text" name="userInput" required id="textArea" placeholder="I need a dentist near Henderson NV">
     <input type="submit" value="Generate locations" id="submitButton" onclick="loadingScreen()"/>
+  </form>
+
+  <form action="/catalog/GPTDemo">
+    <input type="submit" value="Restart Chat"/>
   </form>
   <p id="loadingInfo"></p>
   {% if result %}
@@ -23,9 +52,16 @@
 
 <script>
 function loadingScreen(){
-  document.getElementById("loadingInfo").innerHTML = "Loading";
+  document.getElementById("loadingInfo").innerHTML = "Loading, output will appear below";
 }
 
+var input = document.getElementById("userTextForm");
+
+input.addEventListener("keypress", function(event){
+  if (event.key === "Enter"){
+    document.getElementById(submitButton).click();
+  }
+})
 </script>
 
 

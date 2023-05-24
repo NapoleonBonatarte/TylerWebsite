@@ -69,6 +69,10 @@ def parseAdditionalContent(patientRequest,info):
                         insurance: (aetna)
                 ---END FORMAT TEMPLATE---
 
+                if you do not find a varialbe enter the varialbe in as None
+                an example of this is:
+                name: (None)
+
 
                 """},  {"role" : "user", "content": patientRequest}],
                 temperature = 0.1,

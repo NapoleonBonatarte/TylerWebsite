@@ -1,0 +1,133 @@
+.search-by-chatting {
+        height: 72px;
+        width: 596px;
+        color: #e0398d;
+        font-family: "Euclid Circular B";
+        font-size: 72px;
+        font-weight: 600;
+        letter-spacing: -3px;
+        line-height: 72px;
+        text-align: center;
+        margin: auto
+}
+
+.searchful {
+        color: #272727;
+        font-family: "Euclid Circular B";
+        font-size: 48px;
+        font-weight: 600;
+        letter-spacing: -3px;
+        line-height: 48px;
+        text-align: center;
+        margin: auto;
+        display: inline;
+}
+
+.group {
+        margin: auto
+}
+
+.ai {
+        color: #e0398d;
+        font-family: "Euclid Circular B";
+        font-size: 48px;
+        font-weight: 600;
+        letter-spacing: -3px;
+        line-height: 48px;
+        text-align: center;
+        margin: auto;
+        display: inline;
+}
+
+.rectangle {
+        box-sizing: border-box;
+        height: 175px;
+        width: 186px;
+        border: 0.79px solid rgba(151,151,151,0.24);
+        border-radius: 16px;
+        background-color: #FFFFFF;
+        box-shadow: 0 2px 6px 0 rgba(0,0,0,0.08);
+        float: left;
+        margin: 8px;
+        display: grid;
+        place-items: center;
+}
+
+.resource-name {
+        color: #272727;
+        font-family: "Euclid Circular B";
+        font-size: 19.02px;
+        font-weight: 500;
+        letter-spacing: -0.4px;
+        line-height: 21px;
+        text-align: center;
+        margin: 4px;
+}
+
+.icon-map-pin span {
+        height: 24px;
+        width: 24px;
+        text-align: center;
+        margin: 4px;
+}
+
+
+@font-face {
+        font-family: "ColfaxAI";
+        src: url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff2)
+            format("woff2"),
+          url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff) format("woff");
+        font-weight: normal;
+        font-style: normal;
+}
+@font-face {
+        font-family: "ColfaxAI";
+        src: url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff2) format("woff2"),
+                url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff) format("woff");
+        font-weight: bold;
+        font-style: normal;
+}
+body,
+input {
+        font-size: 16px;
+        line-height: 24px;
+        color: #353740;
+        font-family: "ColfaxAI", Helvetica, sans-serif;
+}
+body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 60px;
+}
+.icon {
+        width: 34px;
+}
+form {
+        display: flex;
+        flex-direction: column;
+        width: 320px;
+}
+input[type="text"] {
+        padding: 12px 16px;
+        border: 1px solid #10a37f;
+        border-radius: 4px;
+        margin-bottom: 24px;
+}
+::placeholder {
+        color: #8e8ea0;
+        opacity: 1;
+}
+input[type="submit"] {
+        padding: 12px 0;
+        color: #fff;
+        background-color: #10a37f;
+        border: none;
+        border-radius: 4px;
+        text-align: center;
+        cursor: pointer;
+}
+.result {
+        font-weight: bold;
+        margin-top: 40px;
+}

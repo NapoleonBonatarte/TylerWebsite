@@ -9,13 +9,28 @@
   {% load static %}
   <img src="{% static 'dog.png' %}" class="icon" />
   <h3>Searchful AI</h3>
-  <p>Enter in a sentence such as "I need food pantries in chicago"</p>
-  <form action="/catalog/GPTDemo/runGPTParse/" method="post">
+  <p>Enter in a sentence such as "I need food pantries in Henderson NV" <br> Note: for now you must
+  restart the chat to ask about another location</p>
+  <form action="/catalog/GPTDemo/runGPTParse/" method="post" id="userTextForm">
     {% csrf_token %}
-    <textarea name="userInput" cols="30" rows="10" required></textarea>
-    <input type="submit" value="Generate locations" />
+    <textarea name="userInput" cols="30" rows="10" required id="textArea"></textarea>
+    <input type="submit" value="Generate locations" id="submitButton" onclick="loadingScreen()"/>
   </form>
+
+  <form action="/catalog/GPTDemo">
+    <input type="submit" value="Restart Chat"/>
+  </form>
+  <p id="loadingInfo"></p>
   {% if result %}
-  <div class="result">{{ result }}</div>
+  <div class="result">{{ result|safe}}</div>
   {% endif %}
 </body>
+
+<script>
+function loadingScreen(){
+  document.getElementById("loadingInfo").innerHTML = "Loading, output will appear below";
+}
+
+</script>
+
+
