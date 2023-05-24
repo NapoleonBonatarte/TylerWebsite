@@ -11,6 +11,10 @@ from .gptModels import parseUserInfo, parseAdditionalContent
 from .gptInterface.gptBuildOutput import buildOutput
 
 
+#### NOTE: I made a mistake in designing this and as such it is only able to take
+# 1 user in the chatbot at a time, this will require fixing later
+
+
 # this determines if the chatbot is searching for a location or not.
 searchForLocation = True
 
