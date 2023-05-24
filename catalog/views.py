@@ -38,7 +38,11 @@ def GPTSearch(request):
     print(request)
     if request.method == "POST":
         patientRequest = request.POST.get("userInput")
-        print(result, "THIS IS THE RESULT")
+        #print(result, "THIS IS THE RESULT")
+
+        result, searchForLocation = parseUserInfo(patientRequest)
+        to_return = buildOutput(result)
+        """
         if searchForLocation:
             result, searchForLocation = parseUserInfo(patientRequest)
             to_return = buildOutput(result)
@@ -46,6 +50,7 @@ def GPTSearch(request):
             # limited to 4 data entries right now for token count, figure
             # out a better way to do this later
             result=to_return, searchForLocation = parseAdditionalContent(patientRequest,result[:4])
+            """
         #print(result, "THIS IS THE RESULT 1")
         return TemplateResponse(request,"GPTHome.html",{"result":to_return})
         #return render(request, "GPTHome.html", result)
