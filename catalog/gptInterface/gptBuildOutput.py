@@ -14,8 +14,12 @@ def buildOutput(info):
                 content += "<p>Address: %s</p>" %(info[i]['Address'])
                 if info[i]['Info_found'] != "" and info[i]['Info_found'] != None:
                         content += "<p> Website:<a href= \"%s\"> Visit their Website Now!</a></p>" %(info[i]["Info_found"])
+                if info[i]['Phone No'] != "" and info[i]['Phone No'] != None:
+                        content += "<p>%s</p>" %(info[i]["Phone No"])
+                
 
-                content += "</div>"
+
+                content += "<br></div>"
 
         return content
 
