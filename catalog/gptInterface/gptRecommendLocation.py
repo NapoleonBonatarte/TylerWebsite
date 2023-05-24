@@ -7,8 +7,8 @@ import os
 def recommendLocation(info):
         # load file
         #### NOTE: change this setup to load json file from data base for quick integration
-        testPath = "catalog/gptInterface/"
-        print(os.listdir(testPath))
+        #testPath = "catalog/gptInterface/"
+        #print(os.listdir(testPath))
 
         file = open('catalog/gptInterface/sample.json')
         data = json.load(file)
@@ -132,7 +132,7 @@ def cleanData(info): # info should be a dict
         file = open("catalog/gptInterface/state.json")
         states = json.load(file)
 
-        print(states)
+        #print(states)
 
         if info['state'] != None:
                 if len(info['state'])>2:
@@ -149,7 +149,7 @@ def cleanData(info): # info should be a dict
                                                 info['city'] = info['city'] + ", " + i["abbreviation"]
                                 except:
                                         print("except2")
-        print(info)
+        #print(info)
         return info
 
 recommendLocation("---BEGIN FORMAT TEMPLATE---\naddress: (null)\ndestination: (Neurology)\ncity: (Henderson)\nstate: (Nevada)\n---END FORMAT TEMPLATE---")

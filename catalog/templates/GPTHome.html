@@ -10,12 +10,22 @@
   <img src="{% static 'dog.png' %}" class="icon" />
   <h3>Searchful AI</h3>
   <p>Enter in a sentence such as "I need food pantries in Henderson NV"</p>
-  <form action="/catalog/GPTDemo/runGPTParse/" method="post">
+  <form action="/catalog/GPTDemo/runGPTParse/" method="post" id="userTextForm">
     {% csrf_token %}
-    <textarea name="userInput" cols="30" rows="10" required></textarea>
-    <input type="submit" value="Generate locations" />
+    <textarea name="userInput" cols="30" rows="10" required id="textArea"></textarea>
+    <input type="submit" value="Generate locations" id="submitButton" onclick="loadingScreen()"/>
   </form>
+  <p id="loadingInfo"></p>
   {% if result %}
   <div class="result">{{ result|safe}}</div>
   {% endif %}
 </body>
+
+<script>
+function loadingScreen(){
+  document.getElementById("loadingInfo").innerHTML = "Loading";
+}
+
+</script>
+
+

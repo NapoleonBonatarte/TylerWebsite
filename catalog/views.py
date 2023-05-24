@@ -7,8 +7,15 @@ from .reductionPotential import ReductionPotential, ReductionPotentialSolution
 import os
 import openai
 from django.template.response import TemplateResponse
-from .gptModels import parseUserInfo
+from .gptModels import parseUserInfo, parseAdditionalContent
 from .gptInterface.gptBuildOutput import buildOutput
+
+
+# this determines if the chatbot is searching for a location or not.
+searchForLocation = True
+
+# this allows for continual question to gpt without using too many tokens
+result = ""
 
 
 def index(request):
@@ -18,14 +25,22 @@ def index(request):
     return render(request,'home.html')
 
 def GPTSearch(request):
-    print(request)
+    global searchForLocation
+    global result
 
+    print(request)
     if request.method == "POST":
         patientRequest = request.POST.get("userInput")
-        result = parseUserInfo(patientRequest)
+        print(result, "THIS IS THE RESULT")
+        if searchForLocation:
+            result, searchForLocation = parseUserInfo(patientRequest)
+            to_return = buildOutput(result)
+        else:
+            # limited to 4 data entries right now for token count, figure
+            # out a better way to do this later
+            result=to_return, searchForLocation = parseAdditionalContent(patientRequest,result[:4])
         #print(result, "THIS IS THE RESULT 1")
-        result = buildOutput(result)
-        return TemplateResponse(request,"GPTHome.html",{"result":result})
+        return TemplateResponse(request,"GPTHome.html",{"result":to_return})
         #return render(request, "GPTHome.html", result)
 
     result = request.args.get("result")

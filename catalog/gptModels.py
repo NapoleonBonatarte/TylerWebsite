@@ -35,5 +35,47 @@ def parseUserInfo(patientRequest):
         a = recommendLocation(result)
         #print(result)
         if len(a) < 1:
-                return None
-        return a
+                return None, False
+        return a, False
+
+def parseAdditionalContent(patientRequest,info):
+        print("additionalConetextParse----------------------------------------------")
+
+
+        #print(info, " THIS IS THE INFO BEING READ")
+        completion = openai.ChatCompletion.create(
+                model = "gpt-3.5-turbo",
+                messages = [{"role":"user", "content" : """I want you to take the next question I ask
+                you and sort out what I am asking into a series of variables, which you will then display in the 
+                following format, where name is in reference to business names, such as (southwest health clinic). 
+                please do not analyze the the sentance, only parse it.
+                ---BEGIN FORMAT TEMPLATE---
+                        name: (${name})
+                        insurance: (${insurance})
+                ---END FORMAT TEMPLATE---
+                an example of what I want is as follows:
+                question: what insurance providers does prime cardiology of nevada accept?
+                template:
+                ---BEGIN FORMAT TEMPLATE---
+                        name: (prime cardiology of nevada)
+                        insurance: (request)
+                ---END FORMAT TEMPLATE---
+
+                example 2:
+                question: does advanced heart care associates accept aetna?
+                template:
+                ---BEGIN FORMAT TEMPLATE---
+                        name: (advanced heart care associates)
+                        insurance: (aetna)
+                ---END FORMAT TEMPLATE---
+
+
+                """},  {"role" : "user", "content": patientRequest}],
+                temperature = 0.1,
+                n = 1
+        )
+
+        print(completion)
+        info = completion.choices[0].message.content
+
+        return info, False
