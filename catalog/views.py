@@ -28,6 +28,9 @@ def GPTSearch(request):
     global searchForLocation
     global result
 
+    print("SEARCH FOR LOCATION", searchForLocation)
+    print("RESULT", result)
+
     print(request)
     if request.method == "POST":
         patientRequest = request.POST.get("userInput")
