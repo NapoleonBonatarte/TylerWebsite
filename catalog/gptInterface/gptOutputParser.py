@@ -207,8 +207,11 @@ def parseInfo(loc):
                           "askAboutWorkingHours": askAboutWorkingHours, "askAboutSelfPay":askAboutSelfPay, "askAboutLanguageServices":askAboutLanguageServices, "askAboutMedicaid" :askAboutMedicaid,"askAboutMedicare":askAboutMedicare ,"askAboutServices": askAboutServices})
 
 def checkIfStringinsideString(toCheck, loc):
-        if re.search(rf"\b(?=\w){toCheck}\b(?!\w)", loc, re.IGNORECASE):
-                return True
+        try:
+                if re.search(rf"\b(?=\w){toCheck}\b(?!\w)", loc, re.IGNORECASE):
+                        return True
+        except:
+                return False
         return False
 
 
