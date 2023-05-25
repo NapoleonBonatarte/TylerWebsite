@@ -6,9 +6,11 @@ from django.shortcuts import HttpResponse
 from .reductionPotential import ReductionPotential, ReductionPotentialSolution
 import os
 import openai
+import re
 from django.template.response import TemplateResponse
-from .gptModels import parseUserInfo, parseAdditionalContent
-from .gptInterface.gptBuildOutput import buildOutput
+from .gptModels import parseUserInfo
+from .gptInterface.gptBuildOutput import buildLocationOutput,buildResponseOutput
+from .gptInterface.gptOutputParser import recommendLocation, parseInfo, giveInfo
 
 
 #### NOTE: I made a mistake in designing this and as such it is only able to take
@@ -21,6 +23,12 @@ searchForLocation = True
 # this allows for continual question to gpt without using too many tokens
 result = ""
 
+GPTMessages = []
+
+listIndex = 0
+
+info = dict()
+
 
 def index(request):
     """View function for home page of site."""
@@ -28,59 +36,38 @@ def index(request):
     """
     return render(request,'home.html')
 
-
-
-def oldGPTSearch(request):
-       
-        global searchForLocation
-        global result
-       
-        if request.method == "POST":
-            patientRequest = request.POST.get("userInput")
-            #print(result, "THIS IS THE RESULT")
-
-            result, searchForLocation = parseUserInfo(patientRequest)
-            to_return = buildOutput(result)
-            """
-            if searchForLocation:
-                result, searchForLocation = parseUserInfo(patientRequest)
-                to_return = buildOutput(result)
-            else:
-                # limited to 4 data entries right now for token count, figure
-                # out a better way to do this later
-                result=to_return, searchForLocation = parseAdditionalContent(patientRequest,result[:4])
-                """
-            #print(result, "THIS IS THE RESULT 1")
-            return TemplateResponse(request,"GPTHome.html",{"result":to_return})
-            #return render(request, "GPTHome.html", result)
-
-        result = request.args.get("result")
-        return render(request, "GPTHome.html",result=result)
-
 def GPTChatScreen(request):
 
         print("CHAT Screen")
      
         global searchForLocation
         global result
+        global GPTMessages
+        global listIndex
+        global info
+
         if request.method == "POST":
             patientRequest = request.POST.get("userInput")
 
-            result, searchForLocation = parseUserInfo(patientRequest)
-            to_return = buildOutput(result)
-            """
-            if searchForLocation:
-                result, searchForLocation = parseUserInfo(patientRequest)
-                to_return = buildOutput(result)
+            output, searchForLocation = parseUserInfo(patientRequest, GPTMessages)
+
+
+            # will introduce a list index out of range if user asks for more enough times
+            # fix later
+            if re.search(r'\b(askmoretrue)\b',output):
+                listIndex += 4
             else:
-                # limited to 4 data entries right now for token count, figure
-                # out a better way to do this later
-                result=to_return, searchForLocation = parseAdditionalContent(patientRequest,result[:4])
-                """
-            #print(result, "THIS IS THE RESULT 1")
+                info = parseInfo(output)
+
+            if re.search(r'\b(null)\b',info["name"]):
+                result = recommendLocation(info)
+                to_return = buildLocationOutput(result, listIndex)
+            else:
+                result = giveInfo(info)
+                to_return = buildResponseOutput(result)
+
             print(request, "THIS IS THE REQUEST")
             return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return})
-            #return render(request, "GPTHome.html", result)
 
         result = request.args.get("result")
         return render(request, "GPTChatScreen.html",result=result)
@@ -102,9 +89,11 @@ def GPTSearch(request):
 def GPTDemo(request):
     global searchForLocation
     global result
+    global GPTMessages
 
     searchForLocation = True
     result = ""
+    GPTMessages= []
 
     print("DEMO")
     return render(request, "GPTHome.html")

@@ -18,7 +18,7 @@
         <form action="/catalog/GPTDemo/runGPTParse/GPTChatScreen/" method="post" id="userTextForm">
                 {% csrf_token %}
                 <input type="text" name="userInput" required id="textArea" placeholder="I want a dentist near Henderson NV">
-                <input type="submit" value="Generate locations" id="submitButton" onclick="loadingScreen()"/>
+                <input type="submit" value="Submit" id="submitButton" onclick="loadingScreen()"/>
         </form>
 
         {% if info %}
