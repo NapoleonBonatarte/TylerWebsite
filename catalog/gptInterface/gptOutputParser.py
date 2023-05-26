@@ -16,7 +16,7 @@ def giveInfo(info):
         for i in data:
                 if i["Name"].lower().replace(" ","") == info["name"].lower().replace(" ", ""):
 
-                        print("THIS IS THE DATE BEING READ ",i)
+                        #print("THIS IS THE DATE BEING READ ",i)
 
                         if info["askAboutDataSet"] == True:
                                 # This is disgusting, rework this later
@@ -54,6 +54,11 @@ def giveInfo(info):
                                         retInfo["SelfPay_Accept_Fees"] = i["SelfPay_accpt_Fees"]
                                 if info["askAboutLanguageServices"] == True:
                                         retInfo["Lang_services"] = i["Lang_services"]
+                                if info['askAboutInsurance'] == True:
+                                        retInfo['Insurance'] = i['Comm_Insurance_Accpt']
+
+        
+        print(retInfo)
 
         return retInfo
 
