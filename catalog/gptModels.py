@@ -21,14 +21,13 @@ def parseUserInfo(patientRequest, newGPTMessage):
                         (askAbout) answer in the form of either (True) or (False). Do not answer user questions. if you can match the name to a name in the given data set do so.
                         input destination in the folowing way: (Dental Care, Neurology, Cardiology, Internal Medicine, Allergy, Dermatology, COVID Testing Places, Dialysis Clinics
                         Endocrinology, Pain Management, Pharmacy, Donation Closets, Food Pantries, Home Health, Mental health, Primary Care
-                        Pulmonology, Rheumatology, Urology, Radiology, Plastic Surgery, Hematology Oncology, Virtual Care, Housing, Transportation). If name not null, then askAboutMore is false
+                        Pulmonology, Rheumatology, Urology, Radiology, Plastic Surgery, Hematology Oncology, Virtual Care, Housing, Transportation).
                         ---BEGIN FORMAT TEMPLATE---
                         name: (${name})
                         address: (${address})
                         destination: (${destination_type})
                         city: (${city})
                         state: (${state})
-                        showMore: (askMore${showMore})
                         askAboutDataSet: (askdata${askAboutDataSet})
                         askAboutInsurance: (askinsurance${askAboutInsurance})
                         askAboutMedicare: (askmedicare${askAboutMedicare})
@@ -50,7 +49,6 @@ def parseUserInfo(patientRequest, newGPTMessage):
                         destination: (cardiology)
                         city: (chicago)
                         state: (null)
-                        showMore: (askmorefalse)
                         askAboutDataSet: (askdatafalse)
                         askAboutInsurance: (askinsurancefalse)
                         askAboutMedicare: (askmedicarefalse)
@@ -64,10 +62,8 @@ def parseUserInfo(patientRequest, newGPTMessage):
                         acceptMedicaid: (no)
                         
                         another example would be: (can you tell me more about the Dental Care of St.Rose?) your name output
-                        would be (name: (Dental Care of St.Rose) askAboutDataSet: (askdatatrue)),
-                        another example would be (can I see more?) your response should be (askAboutMore: (askmoretrue)),
-                        another example (tell me more about Rainbow Dental care) your answer: (name: (Rainbow Dental Care) askAboutMore: (askmorefalse)) all of these examples will
-                        use the format template as described by the system"""},
+                        would be (name: (Dental Care of St.Rose) askAboutDataSet: (askdatatrue)), if the user says (tell me more
+                        about {name} you should say output (askdatatrue) in the fromat given by the administrator"""},
                         {"role" : "user", "content": patientRequest}]
         
         GPTMessages += addingMessage

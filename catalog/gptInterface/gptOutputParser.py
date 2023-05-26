@@ -19,6 +19,7 @@ def giveInfo(info):
                         print("THIS IS THE DATE BEING READ ",i)
 
                         if info["askAboutDataSet"] == True:
+                                # This is disgusting, rework this later
                                 retInfo["Fax No"] = i["Fax No"]
                                 retInfo["Email"] = i["Email"]
                                 retInfo["Hours"] = i["WorkingHrs"]
@@ -40,6 +41,7 @@ def giveInfo(info):
                                 retInfo["Specialty_Service"] = i["Specialty services/Other offerings"]
 
                         else:
+                                # same above as below
                                 if info["askAboutInsurance"] == True:
                                         retInfo["Insurance"] = i["Comm_Insurance_Accpt"]
                                 if info["askAboutMedicare"] == True:
@@ -78,16 +80,6 @@ def recommendLocation(info):
 
         #### NOTE: This is an inefficient way of doing things, and is only
         # being done due to lack of database access, please change this later
-
-
-        ##### business name
-        ## NOTE: this checks if a business name has been entered, if
-        ## so it will only respond to questions about that business name
-
-
-        
-
-
 
         # sp_name
         sp_nameCandidates = []
@@ -203,8 +195,10 @@ def parseInfo(loc):
 
                 stateString += loc[i]
 
-        return cleanData({"Address":addressString, "sp_name":destinationString, "city": cityString, "state":stateString, "askAboutDataSet": askAboutDataSet, "askAboutInsurance" : askAboutInsurance, "askAboutMedicare": askAboutMedicare, "askAboutMedicaid": askAboutMedicaid, "name": name,
-                          "askAboutWorkingHours": askAboutWorkingHours, "askAboutSelfPay":askAboutSelfPay, "askAboutLanguageServices":askAboutLanguageServices, "askAboutMedicaid" :askAboutMedicaid,"askAboutMedicare":askAboutMedicare ,"askAboutServices": askAboutServices})
+        return cleanData({"Address":addressString, "sp_name":destinationString, "city": cityString, "state":stateString, "askAboutDataSet": askAboutDataSet, "askAboutInsurance" : askAboutInsurance,
+                           "askAboutMedicare": askAboutMedicare, "askAboutMedicaid": askAboutMedicaid, "name": name,
+                          "askAboutWorkingHours": askAboutWorkingHours, "askAboutSelfPay":askAboutSelfPay, "askAboutLanguageServices":askAboutLanguageServices, 
+                          "askAboutMedicaid" :askAboutMedicaid,"askAboutMedicare":askAboutMedicare ,"askAboutServices": askAboutServices})
 
 def checkIfStringinsideString(toCheck, loc):
         try:

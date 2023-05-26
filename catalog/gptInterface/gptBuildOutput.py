@@ -13,7 +13,7 @@ def buildLocationOutput(info, listIndex):
         if len(info) < 4:
                 numTo = len(info)
 
-        for i in range(listIndex,numTo + listIndex):
+        for i in range(0,numTo + listIndex):
                 content += "<div>"
                 content += "<p>name: %s</p>" %(info[i]['Name'])
                 content += "<p>specilization: %s</p>" %(info[i]['sp_name'])

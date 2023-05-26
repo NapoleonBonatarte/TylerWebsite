@@ -54,11 +54,17 @@ def GPTChatScreen(request):
 
             # will introduce a list index out of range if user asks for more enough times
             # fix later
+
+            # possibly unworkable due to gpt mistaking any request for more information as 
+            # requesting to see more pages of info
+            """""
             if re.search(r'\b(askmoretrue)\b',output):
                 listIndex += 4
             else:
                 info = parseInfo(output)
-
+            """
+            info = parseInfo(output)
+            
             if re.search(r'\b(null)\b',info["name"]):
                 result = recommendLocation(info)
                 to_return = buildLocationOutput(result, listIndex)
@@ -69,8 +75,7 @@ def GPTChatScreen(request):
             print(request, "THIS IS THE REQUEST")
             return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return})
 
-        result = request.args.get("result")
-        return render(request, "GPTChatScreen.html",result=result)
+        return render(request, "GPTChatScreen.html")
 
 def GPTSearch(request):
 
