@@ -5,31 +5,133 @@
   <link rel="stylesheet" href="{% static 'gpt.css' %}" />
 </head>
 
+<style>
+        .container { 
+           position: absolute;
+           height: 60%; 
+           width: 80%; 
+           top: 10%; 
+           left: 10%; 
+           background-color: transparent; 
+           overflow-y: scroll;
+       }   
+
+       .submitForm{
+        position:absolute;
+        height:20%;
+        width:80%;
+        top:65%;
+        left:10%
+       }
+
+       .columnLeft{
+        float: left;
+        width: 100%;
+        text-align: left;
+        overflow-y: scroll;
+       }
+
+       .columnTextLeft{
+        float:left;
+        width:50%;
+       }
+
+       .columnRight{
+        float: right;
+        width: 100%;
+        text-align: right;
+       }
+
+       .columnTextRight{
+        float:right;
+        width:50%;
+        text-align: right;
+       }
+
+   </style>
+
 
 <body>
+        <div class="container" id="chatBoxContainer">
+                {% if history %}
+                        {{history | safe}}
+                {% endif %}
+
+                {% if result %}
+                        {{result | safe}}
+                {% endif %}
+        </div>
+
+        <form class="submitForm" action="/catalog/GPTDemo/runGPTParse/GPTChatScreen/" method="post" id="userTextForm">
+                {% csrf_token %}
+                <input type="text" name="userInput" required id="textArea" placeholder="I want a dentist near Henderson NV">
+                <input type="submit" value="Submit" id="submitButton" onclick="loadingScreen()"/>
+                <input type="hidden" name="informationPasser" id="informationPasser" value=""/>
+        </form>
+
+
 
         <p id="loadingInfo"></p>
         
 
+        <script>
+                var wrapper = document.getElementById("chatBoxContainer");
+                 
+
+                function loadingScreen(){
+
+                        var divToAdd = document.createElement('div');
+
+                        var loading = document.createElement('div');
+                        loading.id = "loading";
+                        loading.className = "columnRight";
+                        loading.innerHTML = "LOADING..."
+
+                        var infoPasser = document.getElementById("informationPasser")
+
+                        divToAdd.id = "userMessage";
+                        divToAdd.className = "columnLeft";
+                        divToAdd.innerHTML = document.getElementById("textArea").value
+                        wrapper.appendChild(divToAdd);
+                        // may be able to just pass wrapper instead of infopasser, leave for now
+                        // in case extra data passing capabilities needed
+                        infoPasser.value = wrapper.innerHTML;
+
+                        wrapper.appendChild(loading);
+
+
+
+                        
+                        
+        }
+        </script>
+
+
         {% if result %}
-        <div class="result">{{ result|safe}}</div>
+        <!--<div class="columnRight">{{ result|safe}}</div>-->
+
+
+
+        <script>
+                var wrapper = document.getElementById("chatBoxContainer");
+
+                var output = docuemnt.createElement('div');
+                divToAdd.id = "outputToAdd";
+                divToAdd.className = "columnLeft";
+                divToAdd.innerHTML += "{{result|safe}}";
+                divToAdd.innerHTML += "TESTING"
+
+                wrapper.appendChild(divToAdd);
+
+        </script>
+        
         {% endif %}
 
-        <form action="/catalog/GPTDemo/runGPTParse/GPTChatScreen/" method="post" id="userTextForm">
-                {% csrf_token %}
-                <input type="text" name="userInput" required id="textArea" placeholder="I want a dentist near Henderson NV">
-                <input type="submit" value="Submit" id="submitButton" onclick="loadingScreen()"/>
-        </form>
-
         {% if info %}
+
         <script>
                 document.getElementById("textArea").value = ("{{info}}")
                 document.getElementById("submitButton").click()
-
-                function loadingScreen(){
-                  document.getElementById("loadingInfo").innerHTML = "Loading, output will appear above";
-                }
-
         </script>
         {% endif %}
 

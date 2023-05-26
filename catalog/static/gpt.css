@@ -11,6 +11,44 @@
         margin: auto
 }
 
+.column {
+        width:calc(100% / 3);
+        padding:1rem;
+}
+      
+.row {
+        display:flex;
+        position:absolute;
+        height:60%;
+        width:80%;
+        left:10%;
+        top:10%;
+        background-color: #FFCC00;
+}
+
+.chatbox{
+        overflow:hidden;
+        display: table;
+        clear: both;
+}
+
+.userChat{
+        float: left;
+        width: 40%
+
+}
+
+.middleDivider{
+        float: left;
+        width:20%
+}
+
+.chatBotChat{
+        float: left;
+        width: 40%
+}
+
+
 .transParentButton {
     position:absolute;
     background-color: transparent;
