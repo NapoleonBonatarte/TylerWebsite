@@ -6,12 +6,13 @@ def buildLocationOutput(info, listIndex):
                 return "<p> No matches were found </p>"
         
         # Change this to not be hardcoded later
-        content = "<p class='columnRight'>There are %s places that match your description, here are 4 of them</p>" %(len(info))
 
         numTo = 4
 
         if len(info) < 4:
                 numTo = len(info)
+
+        content = "<p class='columnRight'>There are %s places that match your description, here are %s of them</p>" %(len(info), numTo)
 
         for i in range(0,numTo + listIndex):
                 content += "<div class='columnRight'>"
