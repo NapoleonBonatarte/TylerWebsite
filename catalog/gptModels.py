@@ -27,14 +27,16 @@ def parseUserInfo(patientRequest, newGPTMessage):
                         destination: (${destination_type})
                         city: (${city})
                         state: (${state})
+                        insurance: (${insurance})
                         ---END FORMAT TEMPLATE---"""},
                         {"role": "user", "content": """I am going to ask you a question, I do not want you to answer my question, I only want you to parse the question, 
-                        so if I ask (can you find cardiology centers in chicago?) you should output 
+                        so if I ask (can you find cardiology centers in chicago that accept aetna insurance?) you should output 
                         name: (null)
                         address: (null)
                         destination: (cardiology)
                         city: (chicago)
-                        state: (null)"""},
+                        state: (null)
+                        insurance (aetna)"""},
                         {"role" : "user", "content": patientRequest}]
         
         GPTMessages += addingMessage
@@ -76,7 +78,7 @@ def answerUserQuestionGivenName(patientRequest, data):
         print(completion)
         return completion.choices[0].message.content
 
-def parseUserQuestion(patientRequest):
+def DEPRACATEDparseUserQuestion(patientRequest):
         
         print("PARSE USER QUESTION")
 

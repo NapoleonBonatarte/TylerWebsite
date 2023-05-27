@@ -120,8 +120,27 @@ def recommendLocation(info):
                         finalCandidateList.append(i)
 
         #print(finalCandidateList)
+
+        retList = []
+        insurancesAccepted = []
+
+        print(finalCandidateList)
+        print("INFO---------------------\n", info)
+        if info['insuranceToCheck'] != "null":
+                print("IF STATEMENT")
+                for business in finalCandidateList:
+                        #print("FINDING INSURANCE")
+                        #print(business['Comm_Insurance_Accpt'])
+
+                        if business['Comm_Insurance_Accpt'] != None:
+                                insurancesAccepted = business['Comm_Insurance_Accpt'].strip().lower().split(";")
+                                if info['insuranceToCheck'] in insurancesAccepted:
+                                        retList.append(business)
+        else:
+                print("ELSE STATEMENT")
+                retList = finalCandidateList
         
-        return finalCandidateList
+        return retList
 
 
 
@@ -132,6 +151,8 @@ def recommendLocation(info):
 #################################################################
 
 def parseInfo(loc):
+
+        print("PARSEINFO")
 
         max_input = 150
 
@@ -158,18 +179,37 @@ def parseInfo(loc):
         askAboutSelfPay = askAboutLanguageServices = askAboutServices = False
 
 
+
+
+        insuranceIndex = 0
+
         insuranceSearch = re.search(r'\b(dai:False)\b',loc)
-        try:
-                insuranceSearchIndex = insuranceSearch.end()
-                if not insuranceSearch:
-                        doesAcceptInsurance = True
-                        for i in range(insuranceSearchIndex+4,insuranceSearchIndex+150):
+        if insuranceSearch == None:
+                print("RUNNING INSURANCE CHECL")
+                try:    
+                        insuranceIndex = re.search(r'\b(insurance)\b',loc).end()
+                        print(insuranceIndex, ": INSURANCE INDEX")
+                        for i in range(insuranceIndex+3,insuranceIndex+150):
                                 if loc[i] == ")":
                                         break
 
                                 insuranceToCheck += loc[i]
-        except:
-                pass
+
+                except Exception as e:
+                        print(e)
+                        pass
+        else:
+                try:
+                        insuranceSearchIndex = insuranceSearch.end()
+                        if not insuranceSearch:
+                                doesAcceptInsurance = True
+                                for i in range(insuranceSearchIndex+4,insuranceSearchIndex+150):
+                                        if loc[i] == ")":
+                                                break
+
+                                        insuranceToCheck += loc[i]
+                except:
+                        pass
                 
 
         askAboutWorkingHours = checkIfStringinsideString("awh:True", loc)
@@ -246,6 +286,8 @@ def parseInfo(loc):
                         stateString += loc[i]
         except:
                 pass
+
+        print("INSURANCE TO CHECK: " +insuranceToCheck)
 
         return cleanData({"Address":addressString, "sp_name":destinationString, "city": cityString, "state":stateString, "askAboutDataSet": askAboutDataSet, "askAboutInsurance" : askAboutInsurance,
                            "askAboutMedicare": askAboutMedicare, "askAboutMedicaid": askAboutMedicaid, "name": name,

@@ -7,7 +7,7 @@ from .reductionPotential import ReductionPotential, ReductionPotentialSolution
 import os
 import re
 from django.template.response import TemplateResponse
-from .gptModels import parseUserInfo, parseUserQuestion, answerUserQuestionGivenName
+from .gptModels import parseUserInfo,answerUserQuestionGivenName
 from .gptInterface.gptBuildOutput import buildLocationOutput,buildResponseOutput
 from .gptInterface.gptOutputParser import recommendLocation, parseInfo, giveInfo
 from.gptInterface.gptFindNameInData import findNameInData
@@ -60,10 +60,8 @@ def GPTChatScreen(request):
 
             if isName:
                 #output = parseUserQuestion(patientRequest)
-                print(data, "DATA")
-                print("ISNAME GENERATION")
                 output = answerUserQuestionGivenName(patientRequest, data)
-                print("ISNAME OUTPUT")
+
                 to_return = buildResponseOutput(output)
                 return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history})
             else:
@@ -77,9 +75,11 @@ def GPTChatScreen(request):
 
             
             if re.search(r'\b(null)\b',info["name"]):
+                print('MADE IT HERE')
                 result = recommendLocation(info)
                 to_return = buildLocationOutput(result, listIndex)
             else:
+                print("MADE IT HERE 2")
                 result = giveInfo(info)
                 to_return = buildResponseOutput(result)
 
