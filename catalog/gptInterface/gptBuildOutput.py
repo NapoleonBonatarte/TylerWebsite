@@ -32,10 +32,8 @@ def buildLocationOutput(info, listIndex):
 
 
 def buildResponseOutput(info):
-        content = "<div class='columnRight'><p> Of Course! Here is some more info! </p>"
-        for key,value in info.items():
-                content += "<p>%s: %s </p>" %(key,value)
-
+        content = "<div class='columnRight'>"
+        content += "<p>%s</p>" %(info)
         content += "</div>"
 
         return content

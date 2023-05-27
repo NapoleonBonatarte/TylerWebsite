@@ -1,9 +1,10 @@
-import re
+
 import json
-import os
+import time
+from difflib import SequenceMatcher
 
 def findNameInData(userInput):
-        file = open("TylerWebsite/catalog/gptInterface/sample.json")
+        file = open("catalog/gptInterface/sample.json")
         dataList = json.load(file)
         file.close()
 
@@ -12,7 +13,7 @@ def findNameInData(userInput):
         cleanedUserInput = userInput.lower().strip().split(" ")
 
         print(cleanedUserInput)
-
+        time1 = time.time()
         for data in dataList:
 
                 businessNames = data['Name'].lower().strip().split(" ")
@@ -20,11 +21,30 @@ def findNameInData(userInput):
                 correct_inputs = 0
                 #print(businessNames)
 
+
+                # NOTE: maybe use levenshetein distances here to allow for more user error while still getting an appropriate output.
                 for inputpoint in cleanedUserInput:
-                        if inputpoint in businessNames:
+                        inputpoint.lower()
+                        if (inputpoint in businessNames):
                                 correct_inputs += 1
+                        else:
+                                for word in businessNames:
+                                        #print(inputpoint,word.lower())
+                                        #print(SequenceMatcher(None, inputpoint,word.lower()).ratio())
+                                        if SequenceMatcher(None, inputpoint,word.lower()).ratio() > .7:
+                                                correct_inputs += 1
+
+
+
                 if (correct_inputs // max_correct_inputs) >= 0.75:
-                        print("NAME FOUND", data['Name'])
+                        time2 = time.time()
+                        print("RETTRUE")
+                        print("TIME TAKEN TO RUN WORD SEACH: ", time2-time1)
+                        return True, data
+        print("RETFALSE")
+        time2 = time.time()
+        print("TIME TAKEN TO RUN WORD SEACH: ", time2-time1)
+        return False, data
 
 
-findNameInData("I need to find what insurance rainbow dental care accepts")
+#findNameInData("I need to find what insurance rainbow dental care accepts")

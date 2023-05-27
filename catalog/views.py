@@ -5,12 +5,12 @@ from .physicsCalc import photon
 from django.shortcuts import HttpResponse
 from .reductionPotential import ReductionPotential, ReductionPotentialSolution
 import os
-import openai
 import re
 from django.template.response import TemplateResponse
-from .gptModels import parseUserInfo
+from .gptModels import parseUserInfo, parseUserQuestion, answerUserQuestionGivenName
 from .gptInterface.gptBuildOutput import buildLocationOutput,buildResponseOutput
 from .gptInterface.gptOutputParser import recommendLocation, parseInfo, giveInfo
+from.gptInterface.gptFindNameInData import findNameInData
 
 
 #### NOTE: I made a mistake in designing this and as such it is only able to take
@@ -54,20 +54,20 @@ def GPTChatScreen(request):
 
             print(history, "THIS IS THE PAGE HISTORY")
 
-            output, searchForLocation = parseUserInfo(patientRequest, GPTMessages)
 
+            isName, data = findNameInData(patientRequest)
 
-            # will introduce a list index out of range if user asks for more enough times
-            # fix later
-
-            # possibly unworkable due to gpt mistaking any request for more information as 
-            # requesting to see more pages of info
-            """""
-            if re.search(r'\b(askmoretrue)\b',output):
-                listIndex += 4
+            if isName:
+                #output = parseUserQuestion(patientRequest)
+                print(data, "DATA")
+                print("ISNAME GENERATION")
+                output = answerUserQuestionGivenName(patientRequest, data)
+                print("ISNAME OUTPUT")
+                to_return = buildResponseOutput(output)
+                return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history})
             else:
-                info = parseInfo(output)
-            """
+                output = parseUserInfo(patientRequest, GPTMessages)
+
             info = parseInfo(output)
             
             if re.search(r'\b(null)\b',info["name"]):
@@ -79,7 +79,6 @@ def GPTChatScreen(request):
 
             print(to_return, "THIS IS THE RETURN VALUES")
             return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history})
-            #return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "userMessages": userMessages})
 
         return render(request, "GPTChatScreen.html")
 

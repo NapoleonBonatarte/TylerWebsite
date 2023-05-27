@@ -56,9 +56,16 @@ def giveInfo(info):
                                         retInfo["Lang_services"] = i["Lang_services"]
                                 if info['askAboutInsurance'] == True:
                                         retInfo['Insurance'] = i['Comm_Insurance_Accpt']
+                                if info['doesAcceptInsurance'] == True:
+                                        acceptedInsurances = i['Comm_Insurance_Accpt']
+
+                                        acceptedInsurancesList = acceptedInsurances.strip().split(",")
+
+                                        if info["insuranceToCheck"] in acceptedInsurancesList:
+                                                retInfo += str(info["insuranceToCheck"]) + " is accepted by %s" %info['name']  
 
         
-        print(retInfo)
+        print(retInfo, "RETINFO")
 
         return retInfo
 
@@ -129,13 +136,20 @@ def parseInfo(loc):
         max_input = 150
 
         # fix this later
-        loc = loc.replace("\n", "")
+        print(type(loc))
+        print(loc, "THIS IS THE INFO PASSED TO PARSE INFO")
+        try:
+                loc = loc.replace("\n", "")
+        except:
+                pass
 
         addressString = ""
         destinationString = ""
         cityString = ""
         stateString = ""
         name = ""
+        doesAcceptInsurance = False
+        insuranceToCheck = ""
         askAboutDataSet = False
         askAboutInsurance = False
         askAboutMedicare = False
@@ -143,17 +157,32 @@ def parseInfo(loc):
         askAboutWorkingHours = False
         askAboutSelfPay = askAboutLanguageServices = askAboutServices = False
 
-        askAboutWorkingHours = checkIfStringinsideString("askworkinghourstrue", loc)
-        askAboutSelfPay = checkIfStringinsideString("askselfpaytrue", loc)
-        askAboutLanguageServices = checkIfStringinsideString("asklanguageservicetrue", loc)
-        askAboutServices = checkIfStringinsideString("askaboutservicestrue", loc)
-        if (re.search(r'\b(askdatatrue)\b',loc)):
+
+        insuranceSearch = re.search(r'\b(dai:False)\b',loc)
+        try:
+                insuranceSearchIndex = insuranceSearch.end()
+                if not insuranceSearch:
+                        doesAcceptInsurance = True
+                        for i in range(insuranceSearchIndex+4,insuranceSearchIndex+150):
+                                if loc[i] == ")":
+                                        break
+
+                                insuranceToCheck += loc[i]
+        except:
+                pass
+                
+
+        askAboutWorkingHours = checkIfStringinsideString("awh:True", loc)
+        askAboutSelfPay = checkIfStringinsideString("asp:True", loc)
+        askAboutLanguageServices = checkIfStringinsideString("als:True", loc)
+        askAboutServices = checkIfStringinsideString("aas:True", loc)
+        if (re.search(r'\b(aae:True)\b',loc)):
                 askAboutDataSet = True
-        if (re.search(r'\b(askinsurancetrue)\b',loc)):
+        if (re.search(r'\b(in:True)\b',loc)):
                 askAboutInsurance = True
-        if (re.search(r'\b(askmedicaretrue)\b',loc)):
+        if (re.search(r'\b(amr:True)\b',loc)):
                 askAboutMedicare = True
-        if (re.search(r'\b(askmedicaidtrue)\b',loc)):
+        if (re.search(r'\b(amd:True)\b',loc)):
                 askAboutMedicaid = True
 
         nameIndex = re.search(r'\b(name)\b', loc).end()
@@ -164,46 +193,61 @@ def parseInfo(loc):
 
                 name += loc[i]
 
-        addressStringIndex = re.search(r'\b(address)\b', loc).start()
+        try:
+                addressStringIndex = re.search(r'\b(address)\b', loc).start()
 
-        # address max characters is 150
-        for i in range(addressStringIndex+10,addressStringIndex+(max_input+10)):
+                # address max characters is 150
+                for i in range(addressStringIndex+10,addressStringIndex+(max_input+10)):
 
-                if loc[i] == ")":
-                        break
+                        if loc[i] == ")":
+                                break
 
-                addressString += loc[i]
+                        addressString += loc[i]
+        except:
+                pass
 
-        destinationStringIndex = re.search(r'\b(destination)\b', loc).start()
 
-        for i in range(destinationStringIndex+14,destinationStringIndex+(max_input + 14)):
+        try:
+                destinationStringIndex = re.search(r'\b(destination)\b', loc).start()
 
-                if loc[i] == ")":
-                        break
+                for i in range(destinationStringIndex+14,destinationStringIndex+(max_input + 14)):
 
-                destinationString += loc[i]
+                        if loc[i] == ")":
+                                break
 
-        cityStringIndex = re.search(r'\b(city)\b', loc).start()
-        for i in range(cityStringIndex+7,cityStringIndex+(max_input+7)):
+                        destinationString += loc[i]
+        except:
+                pass
 
-                if loc[i] == ")":
-                        break
+        try:
 
-                cityString += loc[i]
+                cityStringIndex = re.search(r'\b(city)\b', loc).start()
+                for i in range(cityStringIndex+7,cityStringIndex+(max_input+7)):
 
-        stateStringIndex = re.search(r'\b(state)\b', loc).start()
+                        if loc[i] == ")":
+                                break
 
-        for i in range(stateStringIndex+8,stateStringIndex+(max_input+8)):
+                        cityString += loc[i]
+        except:
+                pass
 
-                if loc[i] == ")":
-                        break
+        try:
 
-                stateString += loc[i]
+                stateStringIndex = re.search(r'\b(state)\b', loc).start()
+
+                for i in range(stateStringIndex+8,stateStringIndex+(max_input+8)):
+
+                        if loc[i] == ")":
+                                break
+
+                        stateString += loc[i]
+        except:
+                pass
 
         return cleanData({"Address":addressString, "sp_name":destinationString, "city": cityString, "state":stateString, "askAboutDataSet": askAboutDataSet, "askAboutInsurance" : askAboutInsurance,
                            "askAboutMedicare": askAboutMedicare, "askAboutMedicaid": askAboutMedicaid, "name": name,
                           "askAboutWorkingHours": askAboutWorkingHours, "askAboutSelfPay":askAboutSelfPay, "askAboutLanguageServices":askAboutLanguageServices, 
-                          "askAboutMedicaid" :askAboutMedicaid,"askAboutMedicare":askAboutMedicare ,"askAboutServices": askAboutServices})
+                          "askAboutMedicaid" :askAboutMedicaid,"askAboutMedicare":askAboutMedicare ,"askAboutServices": askAboutServices, "doesAcceptInsurance": doesAcceptInsurance, "insuranceToCheck":insuranceToCheck})
 
 def checkIfStringinsideString(toCheck, loc):
         try:
@@ -212,7 +256,6 @@ def checkIfStringinsideString(toCheck, loc):
         except:
                 return False
         return False
-
 
 def cleanData(info): # info should be a dict
 
