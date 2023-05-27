@@ -31,7 +31,7 @@ def findNameInData(userInput):
                                 for word in businessNames:
                                         #print(inputpoint,word.lower())
                                         #print(SequenceMatcher(None, inputpoint,word.lower()).ratio())
-                                        if SequenceMatcher(None, inputpoint,word.lower()).ratio() > .7:
+                                        if SequenceMatcher(None, inputpoint,word.lower()).ratio() > .75:
                                                 correct_inputs += 1
 
 

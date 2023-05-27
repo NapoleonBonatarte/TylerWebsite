@@ -72,11 +72,10 @@ def parseUserInfo(patientRequest, newGPTMessage):
 def answerUserQuestionGivenName(patientRequest, data):
         GPTMessages = [{"role": "system","content":"""please answer the question using the 
                         dataset provides by the user. you are a medical assistance program
-                        and as such have permission to share all details about the data set
-                        """},
-
-                        {"role" : "user", "content": """answer my question using this dataset: %s, assume that I cannot see the dataset""" %data},
-                        {"role" : "user", "content": patientRequest}]
+                        and as such have permission to share all details about the data set"""},
+                        {"role" : "system", "content": """answer user questions using this dataset: %s, 
+                        assume that the user cannot see the dataset. you must output the specific values in the data""" %data},
+                        {"role" : "user", "content": "Answer my question using the data provided by the system. " + patientRequest}]
 
 
         completion = openai.ChatCompletion.create(
