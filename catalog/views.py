@@ -45,6 +45,7 @@ def GPTChatScreen(request):
         global GPTMessages
         global listIndex
         global info
+        parsed = False
 
         if request.method == "POST":
             patientRequest = request.POST.get("userInput")
@@ -68,7 +69,12 @@ def GPTChatScreen(request):
             else:
                 output = parseUserInfo(patientRequest, GPTMessages)
 
-            info = parseInfo(output)
+            info , parsed = parseInfo(output)
+
+            if not parsed:
+                return TemplateResponse(request,"GPTChatScreen.html",{"result":"<div class='columnRight>" + info + "</div>", "history": history})
+
+
             
             if re.search(r'\b(null)\b',info["name"]):
                 result = recommendLocation(info)

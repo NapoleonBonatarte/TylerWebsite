@@ -185,7 +185,10 @@ def parseInfo(loc):
         if (re.search(r'\b(amd:True)\b',loc)):
                 askAboutMedicaid = True
 
-        nameIndex = re.search(r'\b(name)\b', loc).end()
+        try:
+                nameIndex = re.search(r'\b(name)\b', loc).end()
+        except:
+                return loc, False
 
         for i in range(nameIndex+3, nameIndex + (max_input + 3)):
                 if loc[i] == ")":
@@ -247,7 +250,7 @@ def parseInfo(loc):
         return cleanData({"Address":addressString, "sp_name":destinationString, "city": cityString, "state":stateString, "askAboutDataSet": askAboutDataSet, "askAboutInsurance" : askAboutInsurance,
                            "askAboutMedicare": askAboutMedicare, "askAboutMedicaid": askAboutMedicaid, "name": name,
                           "askAboutWorkingHours": askAboutWorkingHours, "askAboutSelfPay":askAboutSelfPay, "askAboutLanguageServices":askAboutLanguageServices, 
-                          "askAboutMedicaid" :askAboutMedicaid,"askAboutMedicare":askAboutMedicare ,"askAboutServices": askAboutServices, "doesAcceptInsurance": doesAcceptInsurance, "insuranceToCheck":insuranceToCheck})
+                          "askAboutMedicaid" :askAboutMedicaid,"askAboutMedicare":askAboutMedicare ,"askAboutServices": askAboutServices, "doesAcceptInsurance": doesAcceptInsurance, "insuranceToCheck":insuranceToCheck}), True
 
 def checkIfStringinsideString(toCheck, loc):
         try:
