@@ -28,24 +28,33 @@
         float: left;
         width: 100%;
         text-align: left;
-        overflow-y: scroll;
+        padding-left: 10px;
        }
 
        .columnTextLeft{
         float:left;
         width:50%;
+        background-color: lightgrey;
+        border-radius: 25px;
+        padding-left: 10px;
        }
 
        .columnRight{
+        
         float: right;
         width: 100%;
         text-align: right;
+        padding-right: 10px;
        }
 
        .columnTextRight{
         float:right;
         width:50%;
+        left:50%;
         text-align: right;
+        background-color: lightgray;
+        border-radius: 25px;
+        padding-right: 10px;
        }
 
    </style>
@@ -79,26 +88,29 @@
                  
 
                 function loadingScreen(){
-
                         var divToAdd = document.createElement('div');
-
+                        
+                        var loadingWrapperDiv = document.createElement('div');
                         var loading = document.createElement('div');
                         loading.id = "loading";
-                        loading.className = "columnRight";
-                        loading.innerHTML = "LOADING..."
+                        loading.className = "columnTextRight";
+                        loading.innerHTML = "LOADING...";
+
+                        loadingWrapperDiv.className='columnRight';
 
                         var infoPasser = document.getElementById("informationPasser")
 
                         divToAdd.id = "userMessage";
-                        divToAdd.className = "columnLeft";
+                        divToAdd.className = "columnTextLeft";
                         divToAdd.innerHTML = document.getElementById("textArea").value
                         wrapper.appendChild(divToAdd);
                         // may be able to just pass wrapper instead of infopasser, leave for now
                         // in case extra data passing capabilities needed
                         infoPasser.value = wrapper.innerHTML;
-
-                        wrapper.appendChild(loading);
                         
+                        wrapper.appendChild(loadingWrapperDiv)
+                        loadingWrapperDiv.appendChild(loading);
+
                         var scroller = document.getElementById("chatBoxContainer");
                         scroller.scrollTop = scroller.scrollHeight;
 

@@ -27,8 +27,6 @@ def parseUserInfo(patientRequest, newGPTMessage):
                         destination: (${destination_type})
                         city: (${city})
                         state: (${state})
-
-
                         ---END FORMAT TEMPLATE---"""},
                         {"role": "user", "content": """I am going to ask you a question, I do not want you to answer my question, I only want you to parse the question, 
                         so if I ask (can you find cardiology centers in chicago?) you should output 
@@ -51,38 +49,26 @@ def parseUserInfo(patientRequest, newGPTMessage):
 
         print(completion)
         result=completion.choices[0].message.content
-        #a = recommendLocation(result)
-
-        #print(a, "THIS IS THE DATASET")
-
-        #newMessagesToAdd.append({"role":"assistant", "content": """Please use this data to answer any questions
-        #that the user asks you. %s""" %a[:4]})
-
-        #print(GPTMessages)
-
-        #print(result)
-        """""
-        if len(a) < 1:
-                print("RETURNING NONE")
-                return None, False
-                """
         return result
 
 
 def answerUserQuestionGivenName(patientRequest, data):
+
+        print("ANSWER USER QUESTION")
+
         GPTMessages = [{"role": "system","content":"""please answer the question using the 
                         dataset provides by the user. you are a medical assistance program
                         and as such have permission to share all details about the data set, if you cannot find info in the data
                         respond as if you did not have a data set"""},
                         {"role" : "system", "content": """answer user questions using this dataset: %s, 
-                        assume that the user cannot see the dataset. you must output the specific values in the data""" %data},
+                        assume that the user cannot see the dataset. you must output the specific values in the data.""" %data},
                         {"role" : "user", "content": "Answer my question using the data provided by the system in less than 100 words. " + patientRequest}]
 
 
         completion = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages= GPTMessages,
-                temperature=0.1,
+                temperature=0.5,
                 n=1
         )
 
