@@ -72,7 +72,7 @@ def GPTChatScreen(request):
             info , parsed = parseInfo(output)
 
             if not parsed:
-                return TemplateResponse(request,"GPTChatScreen.html",{"result":"<div class='columnRight>" + info + "</div>", "history": history})
+                return TemplateResponse(request,"GPTChatScreen.html",{"result":"<div class='columnRight'>" + info + "</div>", "history": history})
 
 
             
