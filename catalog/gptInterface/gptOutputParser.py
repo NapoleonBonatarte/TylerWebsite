@@ -96,9 +96,21 @@ def recommendLocation(info):
         # sp_name
         sp_nameCandidates = []
 
+        #print(info, " INFORMATION BEING PASSED TO RECOMEND LOCATION")
+
         for i in data:
-                if i["sp_name"].lower() == info["sp_name"].lower():
-                        sp_nameCandidates.append(i)
+                for j in info["sp_name"]:
+                        #print("--------------------------")
+                        #print(j.lower(), " SPECIALITY BEING CHECKED")
+                        #print(i["sp_name"].lower(), " SPECIALITY BEING CHECKED AGAINST")
+                        if j.lower().strip() == i['sp_name'].lower():
+                                print(i["Name"], " CANDIDATE ACCEPTED")
+                                sp_nameCandidates.append(i)
+
+        print('THESE ARE THE CANDIDATES----sp_name----------')
+
+        print('END OF CANDIDATES--------------')
+                
         
         #print(sp_nameCandidates)
 
@@ -123,11 +135,7 @@ def recommendLocation(info):
 
         retList = []
         insurancesAccepted = []
-
-        print(finalCandidateList)
-        print("INFO---------------------\n", info)
         if info['insuranceToCheck'] != "null":
-                print("IF STATEMENT")
                 for business in finalCandidateList:
                         #print("FINDING INSURANCE")
                         #print(business['Comm_Insurance_Accpt'])
@@ -137,7 +145,6 @@ def recommendLocation(info):
                                 if info['insuranceToCheck'] in insurancesAccepted:
                                         retList.append(business)
         else:
-                print("ELSE STATEMENT")
                 retList = finalCandidateList
         
         return retList
@@ -157,8 +164,8 @@ def parseInfo(loc):
         max_input = 150
 
         # fix this later
-        print(type(loc))
-        print(loc, "THIS IS THE INFO PASSED TO PARSE INFO")
+        #print(type(loc))
+        #print(loc, "THIS IS THE INFO PASSED TO PARSE INFO")
         try:
                 loc = loc.replace("\n", "")
         except:
@@ -171,6 +178,7 @@ def parseInfo(loc):
         name = ""
         doesAcceptInsurance = False
         insuranceToCheck = ""
+        destinations = []
         askAboutDataSet = False
         askAboutInsurance = False
         askAboutMedicare = False
@@ -259,6 +267,9 @@ def parseInfo(loc):
                                 break
 
                         destinationString += loc[i]
+                
+                destinations = destinationString.split(",")
+                #print(destinations, " THESE ARE THE DESINATIONS BEING PASSED")
         except:
                 pass
 
@@ -289,7 +300,7 @@ def parseInfo(loc):
 
         print("INSURANCE TO CHECK: " +insuranceToCheck)
 
-        return cleanData({"Address":addressString, "sp_name":destinationString, "city": cityString, "state":stateString, "askAboutDataSet": askAboutDataSet, "askAboutInsurance" : askAboutInsurance,
+        return cleanData({"Address":addressString, "sp_name":destinations, "city": cityString, "state":stateString, "askAboutDataSet": askAboutDataSet, "askAboutInsurance" : askAboutInsurance,
                            "askAboutMedicare": askAboutMedicare, "askAboutMedicaid": askAboutMedicaid, "name": name,
                           "askAboutWorkingHours": askAboutWorkingHours, "askAboutSelfPay":askAboutSelfPay, "askAboutLanguageServices":askAboutLanguageServices, 
                           "askAboutMedicaid" :askAboutMedicaid,"askAboutMedicare":askAboutMedicare ,"askAboutServices": askAboutServices, "doesAcceptInsurance": doesAcceptInsurance, "insuranceToCheck":insuranceToCheck}), True

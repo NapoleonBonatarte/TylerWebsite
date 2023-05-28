@@ -20,7 +20,8 @@ def parseUserInfo(patientRequest, newGPTMessage):
                         use the template below to parse the given information. Do not answer user questions.
                         input destination in the folowing way: (Dental Care, Neurology, Cardiology, Internal Medicine, Allergy, Dermatology, COVID Testing Places, Dialysis Clinics
                         Endocrinology, Pain Management, Pharmacy, Donation Closets, Food Pantries, Home Health, Mental health, Primary Care
-                        Pulmonology, Rheumatology, Urology, Radiology, Plastic Surgery, Hematology Oncology, Virtual Care, Housing, Transportation).
+                        Pulmonology, Rheumatology, Urology, Radiology, Plastic Surgery, Hematology Oncology, Virtual Care, Housing, Transportation), if more than two destination
+                        put it in a comma deliniated list, EX: (Dental Care, Cardiology).
                         ---BEGIN FORMAT TEMPLATE---
                         name: (${name})
                         address: (${address})

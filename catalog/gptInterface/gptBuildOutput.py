@@ -3,7 +3,9 @@
 def buildLocationOutput(info, listIndex):
         print("LIST INDEX", listIndex)
         if info == None:
-                return "<p> No matches were found </p>"
+                return "<div class='columnRight'><p class='columnTextRight'> Unfortunately I was not able to find any places that fit your criteria. </p></div>"
+        if len(info) == 0:
+                return "<div class='columnRight'><p class='columnTextRight'> Unfortunately I was not able to find any places that fit your criteria. </p></div>"
         
         # Change this to not be hardcoded later
 

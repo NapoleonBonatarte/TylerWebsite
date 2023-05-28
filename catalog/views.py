@@ -75,7 +75,7 @@ def GPTChatScreen(request):
 
             
             if re.search(r'\b(null)\b',info["name"]):
-                print('MADE IT HERE')
+                #print('MADE IT HERE, THIS IS THE INFO BEING PASSED TO RECOMMENDLOCATION: ', info)
                 result = recommendLocation(info)
                 to_return = buildLocationOutput(result, listIndex)
             else:
