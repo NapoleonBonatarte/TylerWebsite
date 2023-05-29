@@ -4,11 +4,11 @@ from .molcal import moleCounter, electronegativity, cellParameter, photons, calc
 from .physicsCalc import photon
 from django.shortcuts import HttpResponse
 from .reductionPotential import ReductionPotential, ReductionPotentialSolution
-import os
+from django.utils.html import format_html
 import re
 from django.template.response import TemplateResponse
 from .gptModels import parseUserInfo,answerUserQuestionGivenName
-from .gptInterface.gptBuildOutput import buildLocationOutput,buildResponseOutput
+from .gptInterface.gptBuildOutput import buildLocationOutput,buildResponseOutput, listToString
 from .gptInterface.gptOutputParser import recommendLocation, parseInfo, giveInfo
 from.gptInterface.gptFindNameInData import findNameInData
 
@@ -25,9 +25,13 @@ result = ""
 
 GPTMessages = []
 
+allDestinations = []
+
 listIndex = 0
 
 info = dict()
+
+numToGiveUser = 0
 
 
 def index(request):
@@ -45,10 +49,14 @@ def GPTChatScreen(request):
         global GPTMessages
         global listIndex
         global info
+        global numToGiveUser
         parsed = False
+        locationOfListIndex = 0
 
         if request.method == "POST":
             patientRequest = request.POST.get("userInput")
+
+            moreListPasser = request.POST.get("moreListPasser")
 
             # NOTE: This introduces a security vulnurability to injection attacks
             history = request.POST.get("informationPasser")
@@ -63,28 +71,32 @@ def GPTChatScreen(request):
                 output = answerUserQuestionGivenName(patientRequest, data)
 
                 to_return = buildResponseOutput(output)
-                return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history})
+                return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history,"destinations": allDestinations})
             else:
                 output = parseUserInfo(patientRequest, GPTMessages)
 
             info , parsed = parseInfo(output)
 
             if not parsed:
-                return TemplateResponse(request,"GPTChatScreen.html",{"result":"<div class='columnRight'>" + info + "</div>", "history": history})
+                return TemplateResponse(request,"GPTChatScreen.html",{"result":"<div class='columnRight'>" + info + "</div>", "history": history,"destinations": allDestinations})
 
 
             
             if re.search(r'\b(null)\b',info["name"]):
                 #print('MADE IT HERE, THIS IS THE INFO BEING PASSED TO RECOMMENDLOCATION: ', info)
                 result = recommendLocation(info)
-                to_return = buildLocationOutput(result, listIndex)
+                allDestinations = buildLocationOutput(result, listIndex)
+
+                to_return = listToString(allDestinations,0, len(allDestinations))
+                #print("BEING RETURNED: ", to_return)
+
             else:
                 #print("MADE IT HERE 2")
                 result = giveInfo(info)
                 to_return = buildResponseOutput(result)
-
+            format_html
             #print(to_return, "THIS IS THE RETURN VALUES")
-            return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history})
+            return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history, "destinations": allDestinations})
 
         return render(request, "GPTChatScreen.html")
 
@@ -189,7 +201,6 @@ def chemistryCalculator(request):
 
 def personalPage(request):
     print("Personal Page 1")
-    print(os.listdir('catalog/templates/images'))
     return render(request, "personalpage.html")
 
 def displayPicture():

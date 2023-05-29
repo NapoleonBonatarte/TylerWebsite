@@ -68,6 +68,9 @@
 
                 {% if result %}
                         {{result | safe}}
+                        <!----<div class="columnRight">
+                                <input class="columnTextRight" type="submit" value="Show All" id="showMoreButton" onclick="updateDestinationList()"/>
+                        </div>----->
                 {% endif %}
         </div>
 
@@ -76,10 +79,19 @@
                 <input type="text" name="userInput" required id="textArea" placeholder="I want a dentist near Henderson NV">
                 <input type="submit" value="Submit" id="submitButton" onclick="loadingScreen()"/>
                 <input type="hidden" name="informationPasser" id="informationPasser" value=""/>
+                <input type="hidden" name="moreListPasser" id="moreListPasser" value="False"/>
+                
         </form>
         
 
         <script>
+
+                function updateDestinationList(){
+
+                        var allDestination = "{{destinations}}";
+                        var chatBox = document.getElementById("chatBoxContainer");
+                        chatBox.innerHTML += allDestination;
+                }
 
                 var scroller = document.getElementById("chatBoxContainer");
                 scroller.scrollTop = scroller.scrollHeight;
@@ -112,11 +124,7 @@
                         loadingWrapperDiv.appendChild(loading);
 
                         var scroller = document.getElementById("chatBoxContainer");
-                        scroller.scrollTop = scroller.scrollHeight;
-
-
-
-                        
+                        scroller.scrollTop = scroller.scrollHeight;                 
                         
         }
         </script>
