@@ -92,7 +92,7 @@ def GPTChatScreen(request):
                 return TemplateResponse(request,"GPTChatScreen.html",{"result":"<div class='columnRight'>" + output + "</div>", "history": history})
 
 
-            
+            # search for non-existant name
             if re.search(r'\b(null)\b',info["name"]):
                 #print('MADE IT HERE, THIS IS THE INFO BEING PASSED TO RECOMMENDLOCATION: ', info)
                 result = recommendLocation(info)
