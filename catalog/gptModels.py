@@ -1,5 +1,12 @@
-import openai
+"""
+Author: Tyler Windemuth
+Updated: 5/28/23
+This file contains the GPT models that take in user input to generate an
+output.
+"""
 
+
+import openai
 
 newMessagesToAdd = []
 

@@ -8,9 +8,9 @@
 <style>
         .container { 
            position: absolute;
-           height: 60%; 
+           height: 50%; 
            width: 80%; 
-           top: 10%; 
+           top: 20%; 
            left: 10%; 
            background-color: transparent; 
            overflow-y: scroll;
@@ -52,7 +52,37 @@
         width:50%;
         left:50%;
         text-align: right;
-        background-color: lightgray;
+        background-color: lightgrey;
+        border-radius: 25px;
+        padding-left: 10px;
+       }
+
+       .columnTextRightPureDataBase{
+        float:right;
+        width:50%;
+        left:50%;
+        text-align: right;
+        background-color: rgb(199, 87, 87);
+        border-radius: 25px;
+        padding-right: 10px;
+       }
+
+       .columnTextRightHybrid{
+        float:right;
+        width:50%;
+        left:50%;
+        text-align: right;
+        background-color: rgb(99, 206, 98);
+        border-radius: 25px;
+        padding-right: 10px;
+       }
+
+       .columnTextRightPureGPT{
+        float:right;
+        width:50%;
+        left:50%;
+        text-align: right;
+        background-color: rgb(86, 69, 222);
         border-radius: 25px;
         padding-right: 10px;
        }
@@ -61,6 +91,7 @@
 
 
 <body>
+        <div><p>Red = Pure database, Green = hybrid, Blue = pure GPT, gray = user input/system</p></div>
         <div class="container" id="chatBoxContainer">
                 {% if history %}
                         {{history | safe}}

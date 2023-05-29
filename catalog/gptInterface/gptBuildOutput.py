@@ -38,7 +38,7 @@ def buildLocationOutput(info, listIndex):
         content = "<div class='columnRight'><p class='columnTextRight'>There are %s places that match your description</p></div>" %(len(info))
 
         for i in range(0,len(info)):
-                content += "<div class='columnRight'> <div class='columnTextRight'>"
+                content += "<div class='columnRight'> <div class='columnTextRightPureDataBase'>"
                 content += "<p>%s</p>" %(info[i]['Name'])
                 content += "<p>Specilization: %s</p>" %(info[i]['sp_name'])
                 content += "<p>Address: %s</p>" %(info[i]['Address'])
@@ -61,7 +61,7 @@ def buildLocationOutput(info, listIndex):
 
 
 def buildResponseOutput(info):
-        content = "<div class='columnRight'><div class='columnTextRight'>"
+        content = "<div class='columnRight'><div class='columnTextRightHybrid'>"
         content += "<p>%s</p>" %(info)
         content += "</div></div>"
 
