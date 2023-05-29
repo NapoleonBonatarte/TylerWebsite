@@ -42,17 +42,22 @@ def parseUserInfo(patientRequest, newGPTMessage):
         
         GPTMessages += addingMessage
 
-        completion = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages= GPTMessages,
-                temperature=0.1,
-                n=1
-        )
+        try:
+                completion = openai.ChatCompletion.create(
+                        model="gpt-3.5-turbo",
+                        messages= GPTMessages,
+                        temperature=0.1,
+                        n=1
+                )
 
+                print(completion)
+                result=completion.choices[0].message.content
+        except:
+                print("Exception")
+                result = "Uh oh, there seems to have been an error!, please enter your request again!"
+                return result, False
 
-        print(completion)
-        result=completion.choices[0].message.content
-        return result
+        return result, True
 
 
 def answerUserQuestionGivenName(patientRequest, data):
@@ -67,17 +72,21 @@ def answerUserQuestionGivenName(patientRequest, data):
                         assume that the user cannot see the dataset. you must output the specific values in the data.""" %data},
                         {"role" : "user", "content": "Answer my question using the data provided by the system in less than 100 words. " + patientRequest}]
 
+        try:
 
-        completion = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages= GPTMessages,
-                temperature=0.5,
-                n=1
-        )
+                completion = openai.ChatCompletion.create(
+                        model="gpt-3.5-turbo",
+                        messages= GPTMessages,
+                        temperature=0.5,
+                        n=1
+                )
 
+                print(completion)
+                return completion.choices[0].message.content, True
+        except:
 
-        print(completion)
-        return completion.choices[0].message.content
+                print("Exception")
+                return "hm, something seems to have gone wrong there, please try entering in your question again!", False
 
 def DEPRACATEDparseUserQuestion(patientRequest):
         

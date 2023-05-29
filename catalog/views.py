@@ -52,6 +52,7 @@ def GPTChatScreen(request):
         global numToGiveUser
         parsed = False
         locationOfListIndex = 0
+        succuesfulAnswer = True
 
         if request.method == "POST":
             patientRequest = request.POST.get("userInput")
@@ -61,24 +62,29 @@ def GPTChatScreen(request):
             # NOTE: This introduces a security vulnurability to injection attacks
             history = request.POST.get("informationPasser")
 
-            #print(history, "THIS IS THE PAGE HISTORY")
-
-
             isName, data = findNameInData(patientRequest)
 
             if isName:
                 #output = parseUserQuestion(patientRequest)
-                output = answerUserQuestionGivenName(patientRequest, data)
+                output, succuesfulAnswer = answerUserQuestionGivenName(patientRequest, data)
 
-                to_return = buildResponseOutput(output)
-                return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history,"destinations": allDestinations})
+                # checks if any open.AI errors
+                if succuesfulAnswer:
+                    to_return = buildResponseOutput(output)
+                else:
+                    to_return = output
+
+                return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history})
             else:
-                output = parseUserInfo(patientRequest, GPTMessages)
+                output, succuesfulAnswer = parseUserInfo(patientRequest, GPTMessages)
 
-            info , parsed = parseInfo(output)
-
-            if not parsed:
-                return TemplateResponse(request,"GPTChatScreen.html",{"result":"<div class='columnRight'>" + info + "</div>", "history": history,"destinations": allDestinations})
+            if succuesfulAnswer:
+                info , parsed = parseInfo(output)
+                if not parsed:
+                    return TemplateResponse(request,"GPTChatScreen.html",{"result":"<div class='columnRight'>" + info + "</div>", "history": history})
+                
+            else:
+                return TemplateResponse(request,"GPTChatScreen.html",{"result":"<div class='columnRight'>" + output + "</div>", "history": history})
 
 
             
@@ -94,9 +100,8 @@ def GPTChatScreen(request):
                 #print("MADE IT HERE 2")
                 result = giveInfo(info)
                 to_return = buildResponseOutput(result)
-            format_html
             #print(to_return, "THIS IS THE RETURN VALUES")
-            return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history, "destinations": allDestinations})
+            return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history})
 
         return render(request, "GPTChatScreen.html")
 

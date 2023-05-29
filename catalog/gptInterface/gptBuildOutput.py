@@ -12,7 +12,7 @@ def listToString(list, numToStart, numToEnd):
                 retString += list[i]
 
 
-        print("FROM LIST TO STRING: ", retString)
+        #print("FROM LIST TO STRING: ", retString)
         return retString
 
 
