@@ -27,6 +27,7 @@ def findNameInData(userInput):
 
 
                 # NOTE: maybe use levenshetein distances here to allow for more user error while still getting an appropriate output.
+                #       currently this is very slow
                 for inputpoint in cleanedUserInput:
                         inputpoint.lower()
                         if (inputpoint in businessNames):
@@ -35,7 +36,7 @@ def findNameInData(userInput):
                                 for word in businessNames:
                                         #print(inputpoint,word.lower())
                                         #print(SequenceMatcher(None, inputpoint,word.lower()).ratio())
-                                        if SequenceMatcher(None, inputpoint,word.lower()).ratio() > .75:
+                                        if SequenceMatcher(None, inputpoint.lower(),word.lower()).ratio() > .75:
                                                 correct_inputs += 1
 
 

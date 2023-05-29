@@ -11,7 +11,7 @@ def giveInfo(info):
 
         retInfo = dict({"name": info["name"]})
 
-        print("GIVE INFO DATA", info)
+        #print("GIVE INFO DATA", info)
 
         for i in data:
                 if i["Name"].lower().replace(" ","") == info["name"].lower().replace(" ", ""):
@@ -60,6 +60,7 @@ def giveInfo(info):
                                         acceptedInsurances = i['Comm_Insurance_Accpt']
 
                                         acceptedInsurancesList = acceptedInsurances.strip().split(",")
+                                        print(acceptedInsurancesList, " THIS IS A LIST OF THE ACCEPTED INSURANCES")
 
                                         if info["insuranceToCheck"] in acceptedInsurancesList:
                                                 retInfo += str(info["insuranceToCheck"]) + " is accepted by %s" %info['name']  
@@ -76,6 +77,9 @@ def recommendLocation(info):
         #### NOTE: change this setup to load json file from data base for quick integration
         #testPath = "catalog/gptInterface/"
         #print(os.listdir(testPath))
+
+        #print("RECOMENDING LOCATION")
+        #print("INFO BEING USED TO RECOMMEND: ",info)
 
         file = open('catalog/gptInterface/sample.json')
         data = json.load(file)
@@ -104,12 +108,12 @@ def recommendLocation(info):
                         #print(j.lower(), " SPECIALITY BEING CHECKED")
                         #print(i["sp_name"].lower(), " SPECIALITY BEING CHECKED AGAINST")
                         if j.lower().strip() == i['sp_name'].lower():
-                                print(i["Name"], " CANDIDATE ACCEPTED")
+                                #print(i["Name"], " CANDIDATE ACCEPTED")
                                 sp_nameCandidates.append(i)
 
-        print('THESE ARE THE CANDIDATES----sp_name----------')
+        #print('THESE ARE THE CANDIDATES----sp_name----------')
 
-        print('END OF CANDIDATES--------------')
+        #print('END OF CANDIDATES--------------')
                 
         
         #print(sp_nameCandidates)
@@ -133,16 +137,26 @@ def recommendLocation(info):
 
         #print(finalCandidateList)
 
+
+        #print("FINAL CANDIDATE LIST: ", finalCandidateList)
+
         retList = []
         insurancesAccepted = []
         if info['insuranceToCheck'] != "null":
+                #print("IF 1")
+                #print("BUSINESS NAMES--------------")
                 for business in finalCandidateList:
                         #print("FINDING INSURANCE")
-                        #print(business['Comm_Insurance_Accpt'])
+                        #print(business['Comm_Insurance_Accpt'], "-----------------")
 
                         if business['Comm_Insurance_Accpt'] != None:
                                 insurancesAccepted = business['Comm_Insurance_Accpt'].strip().lower().split(";")
-                                if info['insuranceToCheck'] in insurancesAccepted:
+                                for i in range(len(insurancesAccepted)):
+                                        #print(insurancesAccepted[i], " Specific_insurance")
+                                        insurancesAccepted[i] = insurancesAccepted[i].strip()
+                                #print(insurancesAccepted, " INSURANCES ACCEPTED AT: " + business['Name'])
+                                if info['insuranceToCheck'].lower().strip() in insurancesAccepted:
+                                        #print("ACCEPTED")
                                         retList.append(business)
         else:
                 retList = finalCandidateList

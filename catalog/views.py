@@ -53,7 +53,7 @@ def GPTChatScreen(request):
             # NOTE: This introduces a security vulnurability to injection attacks
             history = request.POST.get("informationPasser")
 
-            print(history, "THIS IS THE PAGE HISTORY")
+            #print(history, "THIS IS THE PAGE HISTORY")
 
 
             isName, data = findNameInData(patientRequest)
@@ -79,11 +79,11 @@ def GPTChatScreen(request):
                 result = recommendLocation(info)
                 to_return = buildLocationOutput(result, listIndex)
             else:
-                print("MADE IT HERE 2")
+                #print("MADE IT HERE 2")
                 result = giveInfo(info)
                 to_return = buildResponseOutput(result)
 
-            print(to_return, "THIS IS THE RETURN VALUES")
+            #print(to_return, "THIS IS THE RETURN VALUES")
             return TemplateResponse(request,"GPTChatScreen.html",{"result":to_return, "history": history})
 
         return render(request, "GPTChatScreen.html")
