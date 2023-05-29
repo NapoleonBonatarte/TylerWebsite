@@ -1,4 +1,10 @@
+"""
+Author: Tyler Windemuth
+Updated: 5/28/23
 
+This files contains functions to build output that are then sent to 
+HTML files
+"""
 
 
 def listToString(list, numToStart, numToEnd):

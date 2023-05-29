@@ -1,11 +1,16 @@
+"""
+Author: Tyler Windemuth
+Updated: 5/27/23
+
+This file contains search function for user input, mainly used to
+find certain values that are then used to skip portions of GPT response
+"""
+
+
 
 import json
 import time
 from difflib import SequenceMatcher
-
-
-
-
 
 def findNameInData(userInput):
         file = open("catalog/gptInterface/sample.json")

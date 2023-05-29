@@ -1,3 +1,12 @@
+"""
+Author: Tyler Windemuth
+Updated: 5/29/23
+
+This file parses various inputs from the User and from GPT into outputs
+"""
+
+
+
 import re
 import json
 import usaddress
@@ -15,8 +24,6 @@ def giveInfo(info):
 
         for i in data:
                 if i["Name"].lower().replace(" ","") == info["name"].lower().replace(" ", ""):
-
-                        #print("THIS IS THE DATE BEING READ ",i)
 
                         if info["askAboutDataSet"] == True:
                                 # This is disgusting, rework this later
@@ -138,7 +145,7 @@ def recommendLocation(info):
         #print(finalCandidateList)
 
 
-        #print("FINAL CANDIDATE LIST: ", finalCandidateList)
+        print("FINAL CANDIDATE LIST: ", finalCandidateList)
 
         retList = []
         insurancesAccepted = []

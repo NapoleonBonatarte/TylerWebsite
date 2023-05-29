@@ -1,16 +1,21 @@
+"""
+Author: Tyler Windemuth
+Updated: 5/29/23
+This contains all of the views that are passed to and from HTML according
+to Django design structure.
+"""
+
 from django.shortcuts import render
-from .models import Element
 from .molcal import moleCounter, electronegativity, cellParameter, photons, calculator
 from .physicsCalc import photon
 from django.shortcuts import HttpResponse
 from .reductionPotential import ReductionPotential, ReductionPotentialSolution
-from django.utils.html import format_html
 import re
 from django.template.response import TemplateResponse
 from .gptModels import parseUserInfo,answerUserQuestionGivenName
 from .gptInterface.gptBuildOutput import buildLocationOutput,buildResponseOutput, listToString
 from .gptInterface.gptOutputParser import recommendLocation, parseInfo, giveInfo
-from.gptInterface.gptFindNameInData import findNameInData
+from .gptInterface.gptFindNameInData import findNameInData
 
 
 #### NOTE: I made a mistake in designing this and as such it is only able to take
